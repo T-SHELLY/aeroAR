@@ -1,9 +1,51 @@
-body {
-    background-color: antiquewhite;
+* {
+    font-family: Arial, Helvetica, sans-serif;
 }
-h1 {
+body {
+    background-color:white;
+}
+h3 {
+    max-height: fit-content;
     text-align: center;
 }
+h1 {
+    margin-bottom: 0%;
+    padding-bottom: 0%;
+}
+.logo {
+    text-decoration: none;
+    text-align: center;
+    align-content: center;
+}
+
+a:link {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color:blueviolet
+}
 p {
+    text-align: center;
+}
+
+.centered {
+    align-content: center;
+}
+
+.button {
+    display: block;
+    border: 2px solid blue;
+    border-radius: 5%;
+    background-color: blue;
+    color: white !important;
+    font-weight: bold;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    padding: 15px;
+    font-size: xx-large;
     text-align: center;
 }
