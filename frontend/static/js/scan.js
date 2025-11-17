@@ -1,4 +1,4 @@
-// QR Code Scanner functionality
+// QR Code Scan functionality
 let html5QrCode;
 let isScanning = false;
 
