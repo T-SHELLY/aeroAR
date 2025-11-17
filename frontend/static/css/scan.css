@@ -2,31 +2,33 @@
 
 #reader {
     width: 95%;
-    height: calc(100vh - 250px);
-    margin: 10px auto;
+    height: calc(100vh - 200px);
+    margin: 5px auto 10px auto;
     border: 3px solid blue;
     border-radius: 5px;
     overflow: hidden;
 }
 
 #result {
-    margin: 20px auto;
-    padding: 15px;
+    margin: 5px auto;
+    padding: 8px;
     width: 90%;
     max-width: 500px;
     text-align: center;
     background-color: #f0f0f0;
     border-radius: 5px;
-    min-height: 50px;
+    min-height: 40px;
+    font-size: 0.9em;
 }
 
 .status {
-    margin: 20px auto;
-    padding: 10px;
+    margin: 5px auto;
+    padding: 5px;
     width: 90%;
     max-width: 500px;
     text-align: center;
     font-weight: bold;
+    font-size: 0.9em;
 }
 
 .success {
@@ -51,13 +53,14 @@
 }
 
 #audioResponse {
-    margin: 20px auto;
-    padding: 15px;
+    margin: 5px auto;
+    padding: 8px;
     width: 90%;
     max-width: 500px;
     background-color: #e7f3ff;
     border-radius: 5px;
     display: none;
+    font-size: 0.9em;
 }
 
 .back-button {

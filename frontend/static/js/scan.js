@@ -2,10 +2,9 @@
 let html5QrCode;
 let isScanning = false;
 
-// Configuration for the QR scanner
+// Configuration for the QR scanner - scans entire frame
 const config = {
     fps: 10,
-    qrbox: { width: 250, height: 250 },
     aspectRatio: 1.0
 };
 
