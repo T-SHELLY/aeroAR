@@ -138,8 +138,23 @@ function startScanner() {
     // Request camera permissions and start scanning
     Html5Qrcode.getCameras().then(devices => {
         if (devices && devices.length) {
-            // Use the back camera if available (better for QR scanning)
-            const cameraId = devices.length > 1 ? devices[1].id : devices[0].id;
+            // Find the back camera (environment facing) for better QR scanning
+            let cameraId = devices[0].id; // Default to first camera
+
+            // Look for back camera
+            const backCamera = devices.find(device => {
+                const label = device.label.toLowerCase();
+                return label.includes('back') ||
+                       label.includes('rear') ||
+                       label.includes('environment');
+            });
+
+            if (backCamera) {
+                cameraId = backCamera.id;
+                console.log('Using back camera:', backCamera.label);
+            } else {
+                console.log('Back camera not found, using:', devices[0].label);
+            }
 
             html5QrCode.start(
                 cameraId,
