@@ -11,9 +11,9 @@ const config = {
 // Helper function to show toast notifications
 function showToast(message, type = 'info') {
     const backgrounds = {
-        error: 'linear-gradient(to right, #ff5f6d, #ffc371)',
-        success: 'linear-gradient(to right, #00b09b, #96c93d)',
-        info: 'linear-gradient(to right, #00d2ff, #3a7bd5)'
+        error: 'linear-gradient(to right, #4a5568, #2d3748)',  // Dark blue-gray for errors
+        success: 'linear-gradient(to right, #3a7bd5, #00d2ff)', // Blue gradient for success
+        info: 'linear-gradient(to right, #00d2ff, #3a7bd5)'     // Light to dark blue for info
     };
 
     Toastify({
@@ -87,8 +87,8 @@ function onScanError(errorMessage) {
 // Function to fetch audio from backend
 async function fetchAudio(qrCodeData) {
     try {
-        // Send GET request to /audio endpoint with QR code data as query parameter
-        const response = await fetch(`/audio?code=${encodeURIComponent(qrCodeData)}`);
+        // Send GET request to /audios endpoint with QR code data as query parameter
+        const response = await fetch(`/audios?name=${encodeURIComponent(qrCodeData)}`);
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -96,13 +96,8 @@ async function fetchAudio(qrCodeData) {
 
         const data = await response.json();
 
-        // Display the response
-        const audioResponseDiv = document.getElementById('audioResponse');
-        audioResponseDiv.style.display = 'block';
-        audioResponseDiv.innerHTML = `
-            <h4>Backend Response:</h4>
-            <pre>${JSON.stringify(data, null, 2)}</pre>
-        `;
+        // Show success toast with response data
+        showToast(`✓ ${data.message || 'Audio data received successfully!'}`, 'success');
 
         document.getElementById('statusMessage').innerHTML =
             '<span class="success">Audio data received successfully!</span>';
