@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="static/css/styles.css">
     <link rel="stylesheet" href="static/css/scan.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 
 <body>
@@ -15,9 +16,15 @@
         </h1>
     </div>
 
+    <div style="text-align: center;">
+        <a href="index.html" class="back-button">Back to Home</a>
+    </div>
+
     <div class="status" id="statusMessage">
         <span class="info">Initializing camera...</span>
     </div>
+
+    <div id="reader"></div>
 
     <div id="result">
         <p id="resultText">No QR code detected yet</p>
@@ -25,13 +32,8 @@
 
     <div id="audioResponse"></div>
 
-    <div id="reader"></div>
-
-    <div style="text-align: center;">
-        <a href="index.html" class="back-button">Back to Home</a>
-    </div>
-
     <script src="static/js/html5-qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
     <!-- Include scan functionality -->
     <script src="static/js/scan.js"></script>

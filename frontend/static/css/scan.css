@@ -1,24 +1,41 @@
 /* Scan page specific styles */
 
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
 #reader {
     width: 95%;
-    height: calc(100vh - 200px);
-    margin: 5px auto 10px auto;
+    height: calc(100vh - 150px);
+    margin: 5px auto;
     border: 3px solid blue;
     border-radius: 5px;
     overflow: hidden;
 }
 
+.logo h1 {
+    margin: 5px 0;
+    padding: 0;
+}
+
 #result {
-    margin: 5px auto;
+    position: fixed;
+    bottom: 1%;
+    left: 50%;
+    transform: translateX(-50%);
     padding: 8px;
     width: 90%;
     max-width: 500px;
     text-align: center;
-    background-color: #f0f0f0;
+    background-color: rgba(240, 240, 240, 0.95);
     border-radius: 5px;
-    min-height: 40px;
     font-size: 0.9em;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
 .status {
@@ -53,25 +70,33 @@
 }
 
 #audioResponse {
-    margin: 5px auto;
-    padding: 8px;
+    position: fixed;
+    bottom: 1%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
     width: 90%;
     max-width: 500px;
-    background-color: #e7f3ff;
+    background-color: rgba(231, 243, 255, 0.95);
     border-radius: 5px;
     display: none;
     font-size: 0.9em;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    max-height: 40vh;
+    overflow-y: auto;
 }
 
 .back-button {
     display: inline-block;
     border: 2px solid blue;
-    border-radius: 5%;
+    border-radius: 5px;
     background-color: blue;
     color: white !important;
     font-weight: bold;
-    padding: 10px 20px;
-    margin: 20px;
+    padding: 5px 12px;
+    margin: 2px;
     text-align: center;
     text-decoration: none;
+    font-size: 0.85em;
 }

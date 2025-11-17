@@ -8,6 +8,46 @@ const config = {
     aspectRatio: 1.0
 };
 
+// Helper function to show toast notifications
+function showToast(message, type = 'info') {
+    const backgrounds = {
+        error: 'linear-gradient(to right, #ff5f6d, #ffc371)',
+        success: 'linear-gradient(to right, #00b09b, #96c93d)',
+        info: 'linear-gradient(to right, #00d2ff, #3a7bd5)'
+    };
+
+    Toastify({
+        text: message,
+        duration: 3000,
+        gravity: 'top',
+        position: 'center',
+        stopOnFocus: true,
+        style: {
+            background: backgrounds[type] || backgrounds.info,
+        },
+        onClick: function(){} // Callback after click
+    }).showToast();
+}
+
+// Function to adjust reader div to match actual camera feed size
+function adjustReaderSize() {
+    const readerDiv = document.getElementById('reader');
+    const video = readerDiv.querySelector('video');
+
+    if (video && video.videoHeight > 0) {
+        // Calculate the displayed height based on video aspect ratio
+        const videoAspectRatio = video.videoWidth / video.videoHeight;
+        const readerWidth = readerDiv.offsetWidth;
+        const calculatedHeight = readerWidth / videoAspectRatio;
+
+        // Only adjust if the camera feed is smaller than the container
+        const currentHeight = readerDiv.offsetHeight;
+        if (calculatedHeight < currentHeight) {
+            readerDiv.style.height = `${calculatedHeight}px`;
+        }
+    }
+}
+
 // Function to handle successful QR code scan
 function onScanSuccess(decodedText, decodedResult) {
     if (isScanning) {
@@ -78,16 +118,8 @@ async function fetchAudio(qrCodeData) {
     } catch (error) {
         console.error('Error fetching audio:', error);
 
-        document.getElementById('statusMessage').innerHTML =
-            `<span class="error">Error: ${error.message}</span>`;
-
-        const audioResponseDiv = document.getElementById('audioResponse');
-        audioResponseDiv.style.display = 'block';
-        audioResponseDiv.innerHTML = `
-            <h4>Error:</h4>
-            <p>Failed to fetch audio data from backend.</p>
-            <p>${error.message}</p>
-        `;
+        // Show error toast
+        showToast(`Failed to fetch audio: ${error.message}`, 'error');
 
         // Resume scanning after 3 seconds even on error
         setTimeout(() => {
@@ -117,17 +149,23 @@ function startScanner() {
             ).then(() => {
                 document.getElementById('statusMessage').innerHTML =
                     '<span class="success">Camera ready! Point at a QR code</span>';
+
+                // Adjust reader size to match camera feed after a short delay
+                setTimeout(adjustReaderSize, 500);
             }).catch(err => {
                 console.error('Unable to start scanning', err);
+                showToast(`Error starting camera: ${err}`, 'error');
                 document.getElementById('statusMessage').innerHTML =
                     `<span class="error">Error starting camera: ${err}</span>`;
             });
         } else {
+            showToast('No cameras found on this device', 'error');
             document.getElementById('statusMessage').innerHTML =
                 '<span class="error">No cameras found on this device</span>';
         }
     }).catch(err => {
         console.error('Error getting cameras', err);
+        showToast('Error accessing camera. Please grant camera permissions.', 'error');
         document.getElementById('statusMessage').innerHTML =
             '<span class="error">Error accessing camera. Please grant camera permissions.</span>';
     });
@@ -138,6 +176,48 @@ window.addEventListener('beforeunload', () => {
     if (html5QrCode) {
         html5QrCode.stop().catch(err => console.error('Error stopping scanner:', err));
     }
+});
+
+// Handle window resize to update camera dimensions
+let resizeTimeout;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+        if (html5QrCode && html5QrCode.getState() === 2) { // State 2 = SCANNING
+            const currentCameraId = html5QrCode.getRunningTrackCameraCapabilities()?.deviceId;
+
+            // Show refreshing message
+            document.getElementById('statusMessage').innerHTML =
+                '<span class="info">Refreshing camera...</span>';
+
+            html5QrCode.stop().then(() => {
+                // Restart with the same camera
+                if (currentCameraId) {
+                    html5QrCode.start(currentCameraId, config, onScanSuccess, onScanError)
+                        .then(() => {
+                            document.getElementById('statusMessage').innerHTML =
+                                '<span class="success">Camera ready! Point at a QR code</span>';
+
+                            // Adjust reader size after restart
+                            setTimeout(adjustReaderSize, 500);
+                        })
+                        .catch(err => {
+                            console.error('Error restarting scanner after resize:', err);
+                            showToast(`Error restarting camera: ${err}`, 'error');
+                            document.getElementById('statusMessage').innerHTML =
+                                `<span class="error">Error restarting camera: ${err}</span>`;
+                        });
+                } else {
+                    startScanner();
+                }
+            }).catch(err => {
+                console.error('Error stopping scanner for resize:', err);
+                showToast(`Error stopping camera: ${err}`, 'error');
+                document.getElementById('statusMessage').innerHTML =
+                    `<span class="error">Error stopping camera: ${err}</span>`;
+            });
+        }
+    }, 500); // Debounce resize events
 });
 
 // Start scanner when page loads
