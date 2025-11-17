@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AeroAR - Scanner</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="static/css/styles.css">
+    <style>
+        #reader {
+            width: 90%;
+            max-width: 500px;
+            margin: 20px auto;
+            border: 2px solid blue;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        #result {
+            margin: 20px auto;
+            padding: 15px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            min-height: 50px;
+        }
+
+        .status {
+            margin: 20px auto;
+            padding: 10px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .success {
+            color: green;
+            background-color: #d4edda;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .error {
+            color: red;
+            background-color: #f8d7da;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .info {
+            color: #004085;
+            background-color: #cce5ff;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        #audioResponse {
+            margin: 20px auto;
+            padding: 15px;
+            width: 90%;
+            max-width: 500px;
+            background-color: #e7f3ff;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .back-button {
+            display: inline-block;
+            border: 2px solid blue;
+            border-radius: 5%;
+            background-color: blue;
+            color: white !important;
+            font-weight: bold;
+            padding: 10px 20px;
+            margin: 20px;
+            text-align: center;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="logo">
+        <h1>
+            <a href="index.html">AeroAR</a>
+        </h1>
+    </div>
+
+    <div class="centered">
+        <h3>Point camera at QR code to scan</h3>
+    </div>
+
+    <div class="status" id="statusMessage">
+        <span class="info">Initializing camera...</span>
+    </div>
+
+    <div id="reader"></div>
+
+    <div id="result">
+        <p id="resultText">No QR code detected yet</p>
+    </div>
+
+    <div id="audioResponse"></div>
+
+    <div style="text-align: center;">
+        <a href="index.html" class="back-button">Back to Home</a>
+    </div>
+
+    <script src="static/js/html5-qrcode.min.js"></script>
+
+    <!-- Include scanner functionality -->
+    <script src="static/js/scanner.js"></script>
+</body>
+</html>
