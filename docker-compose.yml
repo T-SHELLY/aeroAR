@@ -1,0 +1,23 @@
+services:
+  aeroar:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aeroar-app
+    ports:
+      - "9999:9999"
+    volumes:
+      # Mount source code for development (hot-reload)
+      - ./src:/app/src
+      # Persist audio files
+      - ./src/audios:/app/src/audios
+    environment:
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+    restart: unless-stopped
+    networks:
+      - aeroar-network
+
+networks:
+  aeroar-network:
+    driver: bridge
