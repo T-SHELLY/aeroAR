@@ -35,4 +35,4 @@ fi
 echo "🚀 Starting AeroAR application..."
 source .venv/bin/activate
 uv sync
-python3 main.py
+uv run main.py

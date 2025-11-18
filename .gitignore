@@ -14,3 +14,5 @@ build/
 *.pyd
 __pycache__/
 uv.lock
+
+tools/*.png

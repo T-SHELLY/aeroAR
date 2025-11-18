@@ -1,6 +1,9 @@
 // QR Code Scan functionality
 let html5QrCode;
 let isScanning = false;
+let currentAudio = null;
+let audioBlob = null;
+let audioName = '';
 
 // Configuration for the QR scanner - scans entire frame
 const config = {
@@ -91,24 +94,22 @@ async function fetchAudio(qrCodeData) {
         const response = await fetch(`/audios?name=${encodeURIComponent(qrCodeData)}`);
 
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            const errorText = await response.text();
+            throw new Error(`Audio not found: ${response.status}`);
         }
 
-        const data = await response.json();
+        // Get the audio file as a blob
+        audioBlob = await response.blob();
+        audioName = qrCodeData;
 
-        // Show success toast with response data
-        showToast(`✓ ${data.message || 'Audio data received successfully!'}`, 'success');
+        // Show success toast
+        showToast(`✓ Audio file received!`, 'success');
 
         document.getElementById('statusMessage').innerHTML =
-            '<span class="success">Audio data received successfully!</span>';
+            '<span class="success">Audio file received!</span>';
 
-        // Resume scanning after 3 seconds
-        setTimeout(() => {
-            isScanning = false;
-            html5QrCode.resume();
-            document.getElementById('statusMessage').innerHTML =
-                '<span class="info">Ready to scan next QR code...</span>';
-        }, 3000);
+        // Show confirmation modal
+        showAudioConfirmModal(qrCodeData);
 
     } catch (error) {
         console.error('Error fetching audio:', error);
@@ -116,15 +117,165 @@ async function fetchAudio(qrCodeData) {
         // Show error toast
         showToast(`Failed to fetch audio: ${error.message}`, 'error');
 
-        // Resume scanning after 3 seconds even on error
+        document.getElementById('statusMessage').innerHTML =
+            '<span class="error">Failed to fetch audio</span>';
+
+        // Resume scanning after 2 seconds on error
         setTimeout(() => {
             isScanning = false;
             html5QrCode.resume();
             document.getElementById('statusMessage').innerHTML =
                 '<span class="info">Ready to scan next QR code...</span>';
-        }, 3000);
+        }, 2000);
     }
 }
+
+// Show confirmation modal
+function showAudioConfirmModal(name) {
+    const modal = document.getElementById('audioConfirmModal');
+    const audioNameElement = document.getElementById('audioName');
+
+    audioNameElement.textContent = name;
+    modal.style.display = 'flex';
+}
+
+// Hide confirmation modal
+function hideAudioConfirmModal() {
+    const modal = document.getElementById('audioConfirmModal');
+    modal.style.display = 'none';
+}
+
+// Initialize audio player
+function initializeAudioPlayer() {
+    if (!audioBlob) return;
+
+    // Clean up existing audio if any
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio = null;
+    }
+
+    // Create new audio element from blob
+    const audioUrl = URL.createObjectURL(audioBlob);
+    currentAudio = new Audio(audioUrl);
+
+    // Set up audio title
+    document.getElementById('audioTitle').textContent = audioName;
+
+    // Show player bar
+    document.getElementById('audioPlayerBar').style.display = 'block';
+
+    // Set up event listeners
+    setupAudioControls();
+
+    // Auto-play
+    currentAudio.play().catch(err => {
+        console.error('Error playing audio:', err);
+        showToast('Failed to play audio', 'error');
+    });
+}
+
+// Set up audio control event listeners
+function setupAudioControls() {
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const progressBar = document.getElementById('audioProgress');
+    const removeBtn = document.getElementById('removeAudioBtn');
+    const timeDisplay = document.getElementById('audioTime');
+
+    // Play/Pause button
+    playPauseBtn.onclick = () => {
+        if (currentAudio.paused) {
+            currentAudio.play();
+            playPauseBtn.textContent = '⏸';
+        } else {
+            currentAudio.pause();
+            playPauseBtn.textContent = '▶';
+        }
+    };
+
+    // Progress bar update
+    currentAudio.ontimeupdate = () => {
+        const progress = (currentAudio.currentTime / currentAudio.duration) * 100;
+        progressBar.value = progress;
+
+        // Update time display
+        const current = formatTime(currentAudio.currentTime);
+        const total = formatTime(currentAudio.duration);
+        timeDisplay.textContent = `${current} / ${total}`;
+    };
+
+    // Progress bar seek
+    progressBar.oninput = (e) => {
+        const seekTime = (e.target.value / 100) * currentAudio.duration;
+        currentAudio.currentTime = seekTime;
+    };
+
+    // Remove button
+    removeBtn.onclick = removeAudioPlayer;
+
+    // Auto-remove when audio ends
+    currentAudio.onended = () => {
+        showToast('Audio finished playing', 'info');
+        removeAudioPlayer();
+    };
+
+    // Update play button state
+    currentAudio.onplay = () => {
+        playPauseBtn.textContent = '⏸';
+    };
+
+    currentAudio.onpause = () => {
+        playPauseBtn.textContent = '▶';
+    };
+}
+
+// Remove audio player
+function removeAudioPlayer() {
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio = null;
+    }
+
+    document.getElementById('audioPlayerBar').style.display = 'none';
+    audioBlob = null;
+    audioName = '';
+
+    // Resume scanning
+    isScanning = false;
+    html5QrCode.resume();
+    document.getElementById('statusMessage').innerHTML =
+        '<span class="info">Ready to scan next QR code...</span>';
+}
+
+// Format time in MM:SS
+function formatTime(seconds) {
+    if (isNaN(seconds)) return '0:00';
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+}
+
+// Handle modal button clicks
+document.addEventListener('DOMContentLoaded', () => {
+    // Yes button - play audio
+    document.getElementById('playYesBtn').onclick = () => {
+        hideAudioConfirmModal();
+        initializeAudioPlayer();
+    };
+
+    // No button - close modal and resume scanning
+    document.getElementById('playNoBtn').onclick = () => {
+        hideAudioConfirmModal();
+        audioBlob = null;
+        audioName = '';
+
+        // Resume scanning
+        isScanning = false;
+        html5QrCode.resume();
+        document.getElementById('statusMessage').innerHTML =
+            '<span class="info">Ready to scan next QR code...</span>';
+    };
+});
 
 // Start the QR code scanner
 function startScanner() {

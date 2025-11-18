@@ -24,10 +24,35 @@
         <span class="info">Initializing camera...</span>
     </div>
 
+    <!-- Audio Player Bar (hidden by default) -->
+    <div id="audioPlayerBar" class="audio-player-bar" style="display: none;">
+        <div class="audio-info">
+            <span id="audioTitle">Audio Title</span>
+        </div>
+        <div class="audio-controls">
+            <button id="playPauseBtn" class="control-btn">▶</button>
+            <input type="range" id="audioProgress" class="progress-bar" min="0" max="100" value="0">
+            <span id="audioTime">0:00 / 0:00</span>
+            <button id="removeAudioBtn" class="control-btn remove-btn">✕</button>
+        </div>
+    </div>
+
     <div id="reader"></div>
 
     <div id="result">
         <p id="resultText">No QR code detected yet</p>
+    </div>
+
+    <!-- Confirmation Popup Modal -->
+    <div id="audioConfirmModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3>Play Audio?</h3>
+            <p>Do you want to play the audio for <strong id="audioName"></strong>?</p>
+            <div class="modal-buttons">
+                <button id="playYesBtn" class="modal-btn yes-btn">Yes</button>
+                <button id="playNoBtn" class="modal-btn no-btn">No</button>
+            </div>
+        </div>
     </div>
 
     <script src="js/html5-qrcode.min.js"></script>
