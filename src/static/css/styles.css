@@ -1,154 +1,149 @@
 * {
-    font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 body {
-    background-color:rgb(236, 236, 236);
+  background-color: rgb(236, 236, 236);
 }
 h3 {
-    max-height: fit-content;
-    text-align: center;
+  max-height: fit-content;
+  text-align: center;
 }
 h1 {
-    margin-bottom: 0%;
-    padding-bottom: 0%;
+  margin-bottom: 0%;
+  padding-bottom: 0%;
 }
 h2 {
-    text-align: center;
+  text-align: center;
 }
 p {
-    text-align: center;
-}
-
-@font-face {
-    font-family: logo_font;
-    src: url(src/static/fonts/Photonica-qB56.ttf);
+  text-align: center;
 }
 
 .logo {
-    text-decoration: none;
-    text-align: center;
-    align-content: center;
-    font-size: 175%;
-    text-shadow: 2px -2px blueviolet;
-    font-family: logo_font;
+  text-decoration: none;
+  text-align: center;
+  align-content: center;
+  font-size: 175%;
+  text-shadow: 2px -2px blueviolet;
 }
 #logoimg {
-    background-image: url(https://upload.wikimedia.org/wikipedia/commons/9/95/Globe_eye_icon.svg);
-    background-repeat: no-repeat; 
-    background-position: right center;
-    background-clip: border-box;
-    background-origin: border-box;
-    background-size: 200px 200px;
-    background-blend-mode: darken;
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/9/95/Globe_eye_icon.svg);
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-clip: border-box;
+  background-origin: border-box;
+  background-size: 200px 200px;
+  background-blend-mode: darken;
 }
 
 a:link {
-    text-decoration: none;
-    color: black;
-    transition: text-shadow .1s;
+  text-decoration: none;
+  color: black;
+  transition: text-shadow 0.1s;
 }
 
 a:active {
-    color:blueviolet;
-    text-shadow: -5px 5px black;
+  color: blueviolet;
+  text-shadow: -5px 5px black;
 }
 
 .centered {
-    align-content: center;
+  align-content: center;
 }
 
 .button {
-    display: block;
-    border: 2px solid black;
-    border-radius: 5%;
-    background-color: blue;
-    color: white !important;
-    font-weight: bold;
-    margin-left: 15%;
-    margin-right: 15%;
-    margin-top: 10%;
-    margin-bottom: 25%;
-    padding: 15px;
-    font-size: x-large;
-    text-align: center;
+  display: block;
+  border: 2px solid black;
+  border-radius: 5%;
+  background-color: blue;
+  color: white !important;
+  font-weight: bold;
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-top: 10%;
+  margin-bottom: 25%;
+  padding: 15px;
+  font-size: x-large;
+  text-align: center;
 }
 .button:active {
-    background-color: blueviolet;
+  background-color: blueviolet;
 }
 #button1 {
-    background-image: url(https://upload.wikimedia.org/wikipedia/commons/4/41/QR_Code_Example.svg), url(https://upload.wikimedia.org/wikipedia/commons/7/75/NFC_logo.svg);
-    background-repeat: no-repeat; 
-    background-position: 10% -20%, 90% -20%;
-    background-clip: border-box;
-    background-color: blue;
-    background-origin: border-box;
-    background-size: 90px 90px;
-    transition: background-position .1s, font-size .1s, background-color .1s;
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/4/41/QR_Code_Example.svg),
+    url(https://upload.wikimedia.org/wikipedia/commons/7/75/NFC_logo.svg);
+  background-repeat: no-repeat;
+  background-position: 10% -20%, 90% -20%;
+  background-clip: border-box;
+  background-color: blue;
+  background-origin: border-box;
+  background-size: 90px 90px;
+  transition: background-position 0.1s, font-size 0.1s, background-color 0.1s;
 }
 #button1:active {
-    background-color: blueviolet;
-    background-position: 10% -10%, 90% -10%;
-    text-shadow: -5px 5px gray;
-    font-size: 29px;
+  background-color: blueviolet;
+  background-position: 10% -10%, 90% -10%;
+  text-shadow: -5px 5px gray;
+  font-size: 29px;
 }
 #button2 {
-    background-image: url(https://upload.wikimedia.org/wikipedia/commons/f/f0/Book_%281606%29_-_The_Noun_Project.svg);
-    background-repeat: no-repeat; 
-    background-position: center -20%;
-    background-clip: border-box;
-    background-color: blue;
-    background-origin: border-box;
-    background-size: 90px 90px;
-    transition: background-position .1s, font-size .1s, background-color .1s;
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/f/f0/Book_%281606%29_-_The_Noun_Project.svg);
+  background-repeat: no-repeat;
+  background-position: center -20%;
+  background-clip: border-box;
+  background-color: blue;
+  background-origin: border-box;
+  background-size: 90px 90px;
+  transition: background-position 0.1s, font-size 0.1s, background-color 0.1s;
 }
 #button2:active {
-    background-color: blueviolet;
-    background-position: center -10%;
-    text-shadow: -5px 5px gray;
-    font-size: 29px;
+  background-color: blueviolet;
+  background-position: center -10%;
+  text-shadow: -5px 5px gray;
+  font-size: 29px;
 }
 #button3 {
-    background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/c4/Globe_icon.svg);
-    background-repeat: no-repeat; 
-    background-position: center -20%;
-    background-clip: border-box;
-    background-color: blue;
-    background-origin: border-box;
-    background-size: 90px 90px;
-    transition: background-position .1s, font-size .1s, background-color .1s;
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/c4/Globe_icon.svg);
+  background-repeat: no-repeat;
+  background-position: center -20%;
+  background-clip: border-box;
+  background-color: blue;
+  background-origin: border-box;
+  background-size: 90px 90px;
+  transition: background-position 0.1s, font-size 0.1s, background-color 0.1s;
 }
 #button3:active {
-    background-color: blueviolet;
-    background-position: center -10%;
-    text-shadow: -5px 5px gray;
-    font-size: 29px;
+  background-color: blueviolet;
+  background-position: center -10%;
+  text-shadow: -5px 5px gray;
+  font-size: 29px;
 }
 
 a.sources_link:link {
-    display: block;
-    padding: 5px;
-    color: blue;
-    font-size: x-large;
-    word-wrap: break-word;
-    transition: none;
-    text-shadow: none;
-    text-align: center;
+  display: block;
+  padding: 5px;
+  color: blue;
+  font-size: x-large;
+  word-wrap: break-word;
+  transition: none;
+  text-shadow: none;
+  text-align: center;
 }
 
 .easy_read {
-    font-size: larger;
+  font-size: larger;
 }
 .easy_read_light {
-    font-size: larger;
-    font-style: italic;
+  font-size: larger;
+  font-style: italic;
 }
 
 .footer {
-    font-style: italic;
-    font-size: smaller;
-    color: lightgray;
-    position: relative;
-    text-align: center;
-    display: block;
-    margin: 50% auto auto auto;
+  font-style: italic;
+  font-size: smaller;
+  color: lightgray;
+  position: relative;
+  text-align: center;
+  display: block;
+  margin: 50% auto auto auto;
 }

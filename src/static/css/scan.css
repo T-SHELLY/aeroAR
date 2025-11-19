@@ -1,289 +1,290 @@
 /* Scan page specific styles */
 
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden;
-    position: relative;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
 }
 
 #reader {
-    width: 95%;
-    height: calc(100vh - 150px);
-    margin: 5px auto;
-    border: 3px solid blue;
-    border-radius: 5px;
-    overflow: hidden;
+  width: 95%;
+  height: calc(100vh - 150px);
+  margin: 5px auto;
+  border: 3px solid blue;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .logo h1 {
-    margin: 5px 0;
-    padding: 0;
+  margin: 5px 0;
+  padding: 0;
 }
 
 #result {
-    position: fixed;
-    bottom: 1%;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 8px;
-    width: 90%;
-    max-width: 500px;
-    text-align: center;
-    background-color: rgba(240, 240, 240, 0.95);
-    border-radius: 5px;
-    font-size: 0.9em;
-    z-index: 10;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  position: fixed;
+  bottom: 1%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  background-color: rgba(240, 240, 240, 0.95);
+  border-radius: 5px;
+  font-size: 0.9em;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .status {
-    margin: 5px auto;
-    padding: 5px;
-    width: 90%;
-    max-width: 500px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 0.9em;
+  margin: 5px auto;
+  padding: 5px;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.9em;
 }
 
 .success {
-    color: green;
-    background-color: #d4edda;
-    border-radius: 5px;
-    padding: 10px;
+  color: green;
+  background-color: #d4edda;
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .error {
-    display: inline-block;
-    color: red;
-    background-color: #f8d7da;
-    border-radius: 5px;
-    padding: 10px;
+  display: inline-block;
+  color: red;
+  background-color: #f8d7da;
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .info {
-    color: #004085;
-    background-color: #cce5ff;
-    border-radius: 5px;
-    padding: 10px;
+  color: #004085;
+  background-color: #cce5ff;
+  border-radius: 5px;
+  padding: 10px;
 }
 
 #audioResponse {
-    position: fixed;
-    bottom: 1%;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 10px;
-    width: 90%;
-    max-width: 500px;
-    background-color: rgba(231, 243, 255, 0.95);
-    border-radius: 5px;
-    display: none;
-    font-size: 0.9em;
-    z-index: 10;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    max-height: 40vh;
-    overflow-y: auto;
+  position: fixed;
+  bottom: 1%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px;
+  width: 90%;
+  max-width: 500px;
+  background-color: rgba(231, 243, 255, 0.95);
+  border-radius: 5px;
+  display: none;
+  font-size: 0.9em;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  max-height: 40vh;
+  overflow-y: auto;
 }
 
 .back-button {
-    display: inline-block;
-    border: 2px solid black;
-    border-radius: 5px;
-    background-color: blue;
-    color: white !important;
-    font-weight: bold;
-    padding: 5px 12px;
-    margin: 2px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 0.85em;
+  display: inline-block;
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: blue;
+  color: white !important;
+  font-weight: bold;
+  padding: 5px 12px;
+  margin: 2px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 0.85em;
 }
 #bbutton {
-    background-image: url(https://upload.wikimedia.org/wikipedia/commons/3/33/Left_curve_arrow_back_-_black.svg);
-    background-repeat: no-repeat; 
-    background-position: center -20%;
-    background-clip: border-box;
-    background-color: blue;
-    background-origin: border-box;
-    background-size: 30px 30px;
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/3/33/Left_curve_arrow_back_-_black.svg);
+  background-repeat: no-repeat;
+  background-position: center -20%;
+  background-clip: border-box;
+  background-color: blue;
+  background-origin: border-box;
+  background-size: 30px 30px;
 }
 #bbutton:active {
-    background-color: blueviolet;
-    text-shadow: -5px 5px gray;
+  background-color: blueviolet;
+  text-shadow: -5px 5px gray;
 }
 
 /* Modal Styles */
 .modal {
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .modal-content {
-    background-color: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    max-width: 400px;
-    width: 85%;
+  background-color: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  max-width: 400px;
+  width: 85%;
 }
 
 .modal-content h3 {
-    margin: 0 0 15px 0;
-    color: #333;
-    font-size: 1.4em;
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 1.4em;
 }
 
 .modal-content p {
-    margin: 0 0 20px 0;
-    color: #555;
-    font-size: 1em;
+  margin: 0 0 20px 0;
+  color: #555;
+  font-size: 1em;
 }
 
 .modal-buttons {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
 }
 
 .modal-btn {
-    padding: 10px 30px;
-    font-size: 1em;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  padding: 10px 30px;
+  font-size: 1em;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .yes-btn {
-    background-color: #28a745;
-    color: white;
+  background-color: #28a745;
+  color: white;
 }
 
 .yes-btn:hover {
-    background-color: #218838;
-    transform: scale(1.05);
+  background-color: #218838;
+  transform: scale(1.05);
 }
 
 .no-btn {
-    background-color: #dc3545;
-    color: white;
+  background-color: #dc3545;
+  color: white;
 }
 
 .no-btn:hover {
-    background-color: #c82333;
-    transform: scale(1.05);
+  background-color: #c82333;
+  transform: scale(1.05);
 }
 
 /* Audio Player Bar Styles */
 .audio-player-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 10px 15px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    z-index: 999;
-    animation: slideDown 0.3s ease;
-    box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 10px 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  animation: slideDown 0.3s ease;
+  box-sizing: border-box;
 }
 
 @keyframes slideDown {
-    from {
-        transform: translateY(-100%);
-    }
-    to {
-        transform: translateY(0);
-    }
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
 .audio-info {
-    font-size: 0.9em;
-    margin-bottom: 8px;
-    text-align: center;
-    font-weight: bold;
+  font-size: 0.9em;
+  margin-bottom: 8px;
+  text-align: center;
+  font-weight: bold;
 }
 
 .audio-controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
 }
 
 .control-btn {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 5px;
-    padding: 5px 12px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: all 0.2s ease;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  padding: 5px 12px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .control-btn:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
 }
 
 .remove-btn {
-    background-color: rgba(220, 53, 69, 0.8);
-    font-weight: bold;
+  background-color: rgba(220, 53, 69, 0.8);
+  font-weight: bold;
 }
 
 .remove-btn:hover {
-    background-color: rgba(200, 35, 51, 0.9);
+  background-color: rgba(200, 35, 51, 0.9);
 }
 
 .progress-bar {
-    flex: 1;
-    height: 6px;
-    -webkit-appearance: none;
-    appearance: none;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 5px;
-    outline: none;
-    cursor: pointer;
+  flex: 1;
+  height: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
 }
 
 .progress-bar::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 15px;
-    height: 15px;
-    background: white;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
 .progress-bar::-moz-range-thumb {
-    width: 15px;
-    height: 15px;
-    background: white;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    border: none;
+  width: 15px;
+  height: 15px;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  border: none;
 }
 
 #audioTime {
-    font-size: 0.85em;
-    min-width: 100px;
-    text-align: center;
+  font-size: 0.85em;
+  min-width: 100px;
+  text-align: center;
 }
