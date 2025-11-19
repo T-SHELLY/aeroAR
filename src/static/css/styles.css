@@ -2,7 +2,7 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 body {
-    background-color:white;
+    background-color:rgb(236, 236, 236);
 }
 h3 {
     max-height: fit-content;
@@ -24,6 +24,16 @@ p {
     text-align: center;
     align-content: center;
     font-size: 175%;
+    text-shadow: 2px -2px blueviolet;
+}
+#logoimg {
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/9/95/Globe_eye_icon.svg);
+    background-repeat: no-repeat; 
+    background-position: right center;
+    background-clip: border-box;
+    background-origin: border-box;
+    background-size: 200px 200px;
+    background-blend-mode: darken;
 }
 
 a:link {
@@ -60,15 +70,53 @@ a:active {
     background-color: blueviolet;
 }
 #button1 {
-    
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/4/41/QR_Code_Example.svg), url(https://upload.wikimedia.org/wikipedia/commons/7/75/NFC_logo.svg);
+    background-repeat: no-repeat; 
+    background-position: 10% -20%, 90% -20%;
+    background-clip: border-box;
+    background-color: blue;
+    background-origin: border-box;
+    background-size: 90px 90px;
+    transition: background-position .1s, font-size .1s, background-color .1s;
+}
+#button1:active {
+    background-color: blueviolet;
+    background-position: 10% -10%, 90% -10%;
+    text-shadow: -5px 5px gray;
+    font-size: 29px;
 }
 #button2 {
-
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/f/f0/Book_%281606%29_-_The_Noun_Project.svg);
+    background-repeat: no-repeat; 
+    background-position: center -20%;
+    background-clip: border-box;
+    background-color: blue;
+    background-origin: border-box;
+    background-size: 90px 90px;
+    transition: background-position .1s, font-size .1s, background-color .1s;
+}
+#button2:active {
+    background-color: blueviolet;
+    background-position: center -10%;
+    text-shadow: -5px 5px gray;
+    font-size: 29px;
 }
 #button3 {
-
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/c4/Globe_icon.svg);
+    background-repeat: no-repeat; 
+    background-position: center -20%;
+    background-clip: border-box;
+    background-color: blue;
+    background-origin: border-box;
+    background-size: 90px 90px;
+    transition: background-position .1s, font-size .1s, background-color .1s;
 }
-
+#button3:active {
+    background-color: blueviolet;
+    background-position: center -10%;
+    text-shadow: -5px 5px gray;
+    font-size: 29px;
+}
 
 a.sources_link:link {
     display: block;
