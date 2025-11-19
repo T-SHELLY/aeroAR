@@ -19,12 +19,18 @@ p {
     text-align: center;
 }
 
+@font-face {
+    font-family: logo_font;
+    src: url(src/static/fonts/Photonica-qB56.ttf);
+}
+
 .logo {
     text-decoration: none;
     text-align: center;
     align-content: center;
     font-size: 175%;
     text-shadow: 2px -2px blueviolet;
+    font-family: logo_font;
 }
 #logoimg {
     background-image: url(https://upload.wikimedia.org/wikipedia/commons/9/95/Globe_eye_icon.svg);
