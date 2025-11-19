@@ -51,7 +51,7 @@ a:active {
     margin-top: 10%;
     margin-bottom: 25%;
     padding: 15px;
-    font-size: xx-large;
+    font-size: x-large;
     text-align: center;
 }
 .button:active {
@@ -60,10 +60,15 @@ a:active {
 
 a.sources_link:link {
     color: blue;
-    font-size: larger;
+    font-size: x-large;
+    word-wrap: break-word;
 
 }
 
 .easy_read {
     font-size: larger;
+}
+.easy_read_light {
+    font-size: larger;
+    font-style: italic;
 }
