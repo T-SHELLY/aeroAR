@@ -29,10 +29,12 @@ p {
 a:link {
     text-decoration: none;
     color: black;
+    transition: text-shadow .1s;
 }
 
 a:active {
-    color:blueviolet
+    color:blueviolet;
+    text-shadow: -5px 5px black;
 }
 
 .centered {
@@ -41,7 +43,7 @@ a:active {
 
 .button {
     display: block;
-    border: 2px solid blue;
+    border: 2px solid black;
     border-radius: 5%;
     background-color: blue;
     color: white !important;
@@ -57,12 +59,26 @@ a:active {
 .button:active {
     background-color: blueviolet;
 }
+#button1 {
+    
+}
+#button2 {
+
+}
+#button3 {
+
+}
+
 
 a.sources_link:link {
+    display: block;
+    padding: 5px;
     color: blue;
     font-size: x-large;
     word-wrap: break-word;
-
+    transition: none;
+    text-shadow: none;
+    text-align: center;
 }
 
 .easy_read {
@@ -71,4 +87,14 @@ a.sources_link:link {
 .easy_read_light {
     font-size: larger;
     font-style: italic;
+}
+
+.footer {
+    font-style: italic;
+    font-size: smaller;
+    color: lightgray;
+    position: relative;
+    text-align: center;
+    display: block;
+    margin: 50% auto auto auto;
 }
