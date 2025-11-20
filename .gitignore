@@ -8,11 +8,6 @@ __pycache__/
 *.egg
 *.egg-info/
 dist/
-build/
-*.pyc
-*.pyo
-*.pyd
-__pycache__/
 uv.lock
 
 tools/*.png

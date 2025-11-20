@@ -11,7 +11,7 @@ docker rm -f aeroar-app >/dev/null 2>&1
 if [ "$1" == "prod" ]; then
     echo "Starting Production Environment..."
     # We explicitly point to the .env file in the parent directory
-    docker compose --env-file ../.env -f docker-compose.prod.yml up -d --build
+    sudo docker compose --env-file ../.env -f docker-compose.prod.yml up -d --build
 else
     echo "Starting Development Environment..."
     docker rm -f aeroar-app >/dev/null 2>&1 # remove the container if it exists
