@@ -14,8 +14,10 @@ if [ "$1" == "prod" ]; then
     sudo docker compose -f docker-compose.prod.yml down >/dev/null 2>&1
     docker compose -f docker-compose.yml down >/dev/null 2>&1
     
+    # Clean up any lingering containers by name
+    docker rm -f aeroar-app docker-nginx-1 docker-certbot-1 aeroar-nginx-1 aeroar-certbot-1 >/dev/null 2>&1
+    
     # We explicitly point to the .env file in the parent directory
-    docker rm -f aeroar-app >/dev/null 2>&1 # remove the container if it exists
     sudo docker compose --env-file ../.env -f docker-compose.prod.yml up -d --build
 else
     echo "Starting Development Environment..."
@@ -23,6 +25,8 @@ else
     sudo docker compose -f docker-compose.prod.yml down >/dev/null 2>&1
     docker compose -f docker-compose.yml down >/dev/null 2>&1
 
-    docker rm -f aeroar-app >/dev/null 2>&1 # remove the container if it exists
+    # Clean up any lingering containers by name
+    docker rm -f aeroar-app docker-nginx-1 docker-certbot-1 aeroar-nginx-1 aeroar-certbot-1 >/dev/null 2>&1
+    
     docker compose --env-file ../.env -f docker-compose.yml up -d --build
 fi
