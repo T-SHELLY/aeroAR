@@ -10,10 +10,19 @@ docker rm -f aeroar-app >/dev/null 2>&1
 
 if [ "$1" == "prod" ]; then
     echo "Starting Production Environment..."
+    # Stop any existing containers (both prod and dev) to free up ports
+    sudo docker compose -f docker-compose.prod.yml down >/dev/null 2>&1
+    docker compose -f docker-compose.yml down >/dev/null 2>&1
+    
     # We explicitly point to the .env file in the parent directory
+    docker rm -f aeroar-app >/dev/null 2>&1 # remove the container if it exists
     sudo docker compose --env-file ../.env -f docker-compose.prod.yml up -d --build
 else
     echo "Starting Development Environment..."
+    # Stop any existing containers (both prod and dev) to free up ports
+    sudo docker compose -f docker-compose.prod.yml down >/dev/null 2>&1
+    docker compose -f docker-compose.yml down >/dev/null 2>&1
+
     docker rm -f aeroar-app >/dev/null 2>&1 # remove the container if it exists
     docker compose --env-file ../.env -f docker-compose.yml up -d --build
 fi
