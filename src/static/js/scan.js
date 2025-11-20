@@ -12,7 +12,7 @@ const config = {
 };
 
 // Helper function to show toast notifications
-function showToast(message, type = 'info') {
+function showToast(message, type = 'info', duration = 3000) {
     const backgrounds = {
         error: 'linear-gradient(to right, #4a5568, #2d3748)',  // Dark blue-gray for errors
         success: 'linear-gradient(to right, #3a7bd5, #00d2ff)', // Blue gradient for success
@@ -21,7 +21,7 @@ function showToast(message, type = 'info') {
 
     Toastify({
         text: message,
-        duration: 3000,
+        duration: duration,
         gravity: 'top',
         position: 'center',
         stopOnFocus: true,
@@ -255,6 +255,67 @@ function formatTime(seconds) {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
 }
 
+// Easter egg function to simulate watch connection
+function triggerWatchEasterEgg() {
+    // Show initial toast notification (2 seconds)
+    showToast('Showing watch connect in 10 seconds', 'info', 2000);
+
+    // Wait 10 seconds, then trigger the oil-filter audio
+    setTimeout(async () => {
+        // Pause scanning
+        if (html5QrCode) {
+            html5QrCode.pause(true);
+            isScanning = true;
+        }
+
+        try {
+            // Fetch the oil-filter audio
+            const response = await fetch('/audios?name=oil-filter');
+
+            if (!response.ok) {
+                throw new Error(`Audio not found: ${response.status}`);
+            }
+
+            // Get the audio file as a blob
+            audioBlob = await response.blob();
+            audioName = 'oil-filter';
+
+            // Show custom modal with watch message
+            const modal = document.getElementById('audioConfirmModal');
+            const modalText = modal.querySelector('p');
+            const audioNameElement = document.getElementById('audioName');
+
+            // Store original text to restore later
+            const originalText = modalText.innerHTML;
+
+            // Set custom watch message
+            modalText.innerHTML = 'Read <strong>oil-filter</strong> from watch!';
+
+            // Show the modal
+            modal.style.display = 'flex';
+
+            // Restore original text when modal is closed
+            const restoreModalText = () => {
+                modalText.innerHTML = originalText;
+            };
+
+            // Add one-time listeners to restore text
+            document.getElementById('playYesBtn').addEventListener('click', restoreModalText, { once: true });
+            document.getElementById('playNoBtn').addEventListener('click', restoreModalText, { once: true });
+
+        } catch (error) {
+            console.error('Easter egg error:', error);
+            showToast('Failed to connect to watch', 'error');
+
+            // Resume scanning on error
+            if (html5QrCode) {
+                isScanning = false;
+                html5QrCode.resume();
+            }
+        }
+    }, 10000); // 10 seconds delay
+}
+
 // Handle modal button clicks
 document.addEventListener('DOMContentLoaded', () => {
     // Yes button - play audio
@@ -275,6 +336,33 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('statusMessage').innerHTML =
             '<span class="info">Ready to scan next QR code...</span>';
     };
+
+    // Easter egg: Triple-click the back button to simulate watch connection
+    const backButton = document.getElementById('bbutton');
+    let clickCount = 0;
+    let clickTimer = null;
+
+    if (backButton) {
+        backButton.addEventListener('click', (e) => {
+            e.preventDefault(); // Always prevent default navigation
+            clickCount++;
+
+            if (clickCount === 1) {
+                clickTimer = setTimeout(() => {
+                    // If only single click, navigate after delay
+                    if (clickCount === 1) {
+                        window.location.href = 'index.html';
+                    }
+                    clickCount = 0;
+                }, 600); // 600ms window for triple-click
+            } else if (clickCount === 3) {
+                // Triple click detected!
+                clearTimeout(clickTimer);
+                clickCount = 0;
+                triggerWatchEasterEgg();
+            }
+        });
+    }
 });
 
 // Start the QR code scanner
