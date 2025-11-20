@@ -87,6 +87,10 @@ server {
 }
 EOF
 
-# 5. Reload Nginx to pick up the new certs and config
+# 5. Start the application container so Nginx can resolve the upstream
+echo "### Starting application container..."
+docker compose -f docker-compose.prod.yml up -d aeroar
+
+# 6. Reload Nginx to pick up the new certs and config
 echo "### Reloading nginx ..."
 docker compose -f docker-compose.prod.yml exec nginx nginx -s reload
