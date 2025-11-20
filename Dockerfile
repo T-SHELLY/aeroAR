@@ -37,7 +37,7 @@ COPY src/ ./src/
 RUN mkdir -p /app/src/audios
 
 # Expose port 9999
-EXPOSE 9999
+EXPOSE 80
 
 # Run the application
 CMD ["bash", "run.sh"]

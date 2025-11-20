@@ -59,7 +59,7 @@ def audios():
         download_name=audio_filename
     )
 
-def run_server(host='0.0.0.0', port=9999, debug=True):
+def run_server(host='0.0.0.0', port=80, debug=True):
     """Run the Flask development server"""
     print(f"Starting AeroAR Flask application on port {port}...")
     app.run(host=host, port=port, debug=debug)
