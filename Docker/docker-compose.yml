@@ -1,16 +1,16 @@
 services:
   aeroar:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: Docker/Dockerfile
     container_name: aeroar-app
     ports:
       - "${PORT}:80"
     volumes:
       # Mount source code for development (hot-reload)
-      - ./src:/app/src
+      - ../src:/app/src
       # Persist audio files
-      - ./src/audios:/app/src/audios
+      - ../src/audios:/app/src/audios
     environment:
       - FLASK_ENV=development
       - FLASK_DEBUG=1

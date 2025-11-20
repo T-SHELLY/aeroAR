@@ -3,16 +3,16 @@
 services:
   aeroar:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: Docker/Dockerfile
     container_name: aeroar-app
     restart: unless-stopped
     environment:
       - FLASK_ENV=production
       - FLASK_DEBUG=0
     volumes:
-      - ./src:/app/src
-      - ./src/audios:/app/src/audios
+      - ../src:/app/src
+      - ../src/audios:/app/src/audios
     networks:
       - aeroar-network
 
