@@ -22,7 +22,6 @@ if [ "$1" == "prod" ]; then
 else
     echo "Starting Development Environment..."
     # Stop any existing containers (both prod and dev) to free up ports
-    sudo docker compose -f docker-compose.prod.yml down >/dev/null 2>&1
     docker compose -f docker-compose.yml down >/dev/null 2>&1
 
     # Clean up any lingering containers by name
