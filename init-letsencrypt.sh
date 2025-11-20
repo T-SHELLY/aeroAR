@@ -1,56 +1,27 @@
 #!/bin/bash
 
-if ! [ -x "$(command -v docker-compose)" ]; then
-  echo 'Error: docker-compose is not installed.' >&2
+if ! docker compose version > /dev/null 2>&1; then
+  echo 'Error: docker compose is not installed or available.' >&2
   exit 1
 fi
 
-# MAGIC DOMAIN: Maps to 18.224.184.164 automatically
 domains=(18.224.184.164.nip.io)
 rsa_key_size=4096
 data_path="./data/certbot"
 email="" # Add your email here for renewal notifications
 staging=0 # Set to 1 if you're testing your setup to avoid hitting request limits
 
-if [ -d "$data_path" ]; then
-  read -p "Existing data found for $domains. Continue and replace existing certificate? (y/N) " decision
-  if [ "$decision" != "Y" ] && [ "$decision" != "y" ]; then
-    exit
-  fi
-fi
+# 1. Prepare the environment
+echo "### Preparing Nginx configuration for validation..."
+# We temporarily use a simple HTTP-only config to allow Nginx to start without certs
+cp ./nginx/conf.d/init.conf ./nginx/conf.d/app.conf
 
-
-if [ ! -e "$data_path/conf/options-ssl-nginx.conf" ] || [ ! -e "$data_path/conf/ssl-dhparams.pem" ]; then
-  echo "### Downloading recommended TLS parameters ..."
-  mkdir -p "$data_path/conf"
-  curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/_internal/tls_configs/options-ssl-nginx.conf > "$data_path/conf/options-ssl-nginx.conf"
-  curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot/certbot/ssl-dhparams.pem > "$data_path/conf/ssl-dhparams.pem"
-  echo
-fi
-
-echo "### Creating dummy certificate for $domains ..."
-path="/etc/letsencrypt/live/$domains"
-mkdir -p "$data_path/conf/live/$domains"
-docker-compose -f docker-compose.prod.yml run --rm --entrypoint "\
-  openssl req -x509 -nodes -newkey rsa:$rsa_key_size -days 1\
-    -keyout '$path/privkey.pem' \
-    -out '$path/fullchain.pem' \
-    -subj '/CN=localhost'" certbot
-echo
-
-
+# 2. Start Nginx
 echo "### Starting nginx ..."
-docker-compose -f docker-compose.prod.yml up --force-recreate -d nginx
+docker compose -f docker-compose.prod.yml up --force-recreate -d nginx
 echo
 
-echo "### Deleting dummy certificate for $domains ..."
-docker-compose -f docker-compose.prod.yml run --rm --entrypoint "\
-  rm -Rf /etc/letsencrypt/live/$domains && \
-  rm -Rf /etc/letsencrypt/archive/$domains && \
-  rm -Rf /etc/letsencrypt/renewal/$domains.conf" certbot
-echo
-
-
+# 3. Request the certificate
 echo "### Requesting Let's Encrypt certificate for $domains ..."
 #Join $domains to -d args
 domain_args=""
@@ -67,7 +38,7 @@ esac
 # Enable staging mode if needed
 if [ $staging != "0" ]; then staging_arg="--staging"; fi
 
-docker-compose -f docker-compose.prod.yml run --rm --entrypoint "\
+docker compose -f docker-compose.prod.yml run --rm --entrypoint "\
   certbot certonly --webroot -w /var/www/certbot \
     $staging_arg \
     $email_arg \
@@ -77,5 +48,45 @@ docker-compose -f docker-compose.prod.yml run --rm --entrypoint "\
     --force-renewal" certbot
 echo
 
+# 4. Restore the full configuration
+echo "### Restoring full Nginx configuration..."
+# We write the full config back (using the content we know we want)
+# Note: We are re-writing the file here to ensure it's correct. 
+# If you customized app.conf manually, this script would overwrite it.
+cat > ./nginx/conf.d/app.conf <<EOF
+server {
+    listen 80;
+    server_name 18.224.184.164.nip.io;
+    server_tokens off;
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    location / {
+        return 301 https://\$host\$request_uri;
+    }
+}
+
+server {
+    listen 443 ssl;
+    server_name 18.224.184.164.nip.io;
+    server_tokens off;
+
+    ssl_certificate /etc/letsencrypt/live/18.224.184.164.nip.io/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/18.224.184.164.nip.io/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    location / {
+        proxy_pass  http://aeroar:80;
+        proxy_set_header    Host                \$http_host;
+        proxy_set_header    X-Real-IP           \$remote_addr;
+        proxy_set_header    X-Forwarded-For     \$proxy_add_x_forwarded_for;
+    }
+}
+EOF
+
+# 5. Reload Nginx to pick up the new certs and config
 echo "### Reloading nginx ..."
-docker-compose -f docker-compose.prod.yml exec nginx nginx -s reload
+docker compose -f docker-compose.prod.yml exec nginx nginx -s reload

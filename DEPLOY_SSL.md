@@ -27,7 +27,7 @@ sudo ./init-letsencrypt.sh
 Start the application in production mode:
 
 ```bash
-sudo docker-compose -f docker-compose.prod.yml up -d
+sudo docker compose -f docker-compose.prod.yml up -d
 ```
 
 ### 4. Access the Site
