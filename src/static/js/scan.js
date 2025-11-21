@@ -4,12 +4,69 @@ let isScanning = false;
 let currentAudio = null;
 let audioBlob = null;
 let audioName = '';
+let cameraAvailable = false;
+let currentCameraId = null;
 
 // Configuration for the QR scanner - scans entire frame
 const config = {
     fps: 10,
     aspectRatio: 1.0
 };
+
+// Function to update mode label
+function updateModeLabel(mode) {
+    const modeLabel = document.getElementById('modeLabel');
+    if (modeLabel) {
+        modeLabel.textContent = mode;
+    }
+}
+
+// Function to show/hide camera toggle
+function setCameraToggleVisibility(visible) {
+    const toggleContainer = document.getElementById('cameraToggleContainer');
+    if (toggleContainer) {
+        toggleContainer.style.display = visible ? 'flex' : 'none';
+    }
+}
+
+// Function to stop camera scanning
+async function stopCamera() {
+    if (html5QrCode && html5QrCode.getState() === 2) { // State 2 = SCANNING
+        try {
+            await html5QrCode.stop();
+            document.getElementById('statusMessage').innerHTML =
+                '<span class="info">Camera disabled. Watch Scan mode active.</span>';
+            updateModeLabel('Watch Scan');
+        } catch (err) {
+            console.error('Error stopping camera:', err);
+        }
+    }
+}
+
+// Function to start camera scanning
+async function startCamera() {
+    if (!currentCameraId || !html5QrCode) return;
+
+    try {
+        await html5QrCode.start(
+            currentCameraId,
+            config,
+            onScanSuccess,
+            onScanError
+        );
+        document.getElementById('statusMessage').innerHTML =
+            '<span class="success">Camera ready! Point at a QR code</span>';
+        updateModeLabel('QR + Watch Scan');
+
+        // Adjust reader size to match camera feed after a short delay
+        setTimeout(adjustReaderSize, 500);
+    } catch (err) {
+        console.error('Error starting camera:', err);
+        showToast(`Error starting camera: ${err}`, 'error');
+        document.getElementById('statusMessage').innerHTML =
+            `<span class="error">Error starting camera: ${err}</span>`;
+    }
+}
 
 // Helper function to show toast notifications
 function showToast(message, type = 'info', duration = 3000) {
@@ -165,6 +222,12 @@ function initializeAudioPlayer() {
     // Show player bar
     document.getElementById('audioPlayerBar').style.display = 'block';
 
+    // Hide mode controls when audio is playing
+    const modeControls = document.getElementById('modeControls');
+    if (modeControls) {
+        modeControls.style.display = 'none';
+    }
+
     // Set up event listeners
     setupAudioControls();
 
@@ -240,11 +303,20 @@ function removeAudioPlayer() {
     audioBlob = null;
     audioName = '';
 
-    // Resume scanning
-    isScanning = false;
-    html5QrCode.resume();
-    document.getElementById('statusMessage').innerHTML =
-        '<span class="info">Ready to scan next QR code...</span>';
+    // Show mode controls again when audio stops
+    const modeControls = document.getElementById('modeControls');
+    if (modeControls) {
+        modeControls.style.display = 'flex';
+    }
+
+    // Resume scanning only if camera toggle is enabled and camera is available
+    const cameraToggle = document.getElementById('cameraToggle');
+    if (html5QrCode && cameraAvailable && cameraToggle && cameraToggle.checked) {
+        isScanning = false;
+        html5QrCode.resume();
+        document.getElementById('statusMessage').innerHTML =
+            '<span class="info">Ready to scan next QR code...</span>';
+    }
 }
 
 // Format time in MM:SS
@@ -262,8 +334,8 @@ function triggerWatchEasterEgg() {
 
     // Wait 10 seconds, then trigger the oil-filter audio
     setTimeout(async () => {
-        // Pause scanning
-        if (html5QrCode) {
+        // Pause scanning only if camera is actively scanning
+        if (html5QrCode && html5QrCode.getState() === 2) { // State 2 = SCANNING
             html5QrCode.pause(true);
             isScanning = true;
         }
@@ -307,8 +379,8 @@ function triggerWatchEasterEgg() {
             console.error('Easter egg error:', error);
             showToast('Failed to connect to watch', 'error');
 
-            // Resume scanning on error
-            if (html5QrCode) {
+            // Resume scanning on error only if it was scanning before
+            if (html5QrCode && isScanning) {
                 isScanning = false;
                 html5QrCode.resume();
             }
@@ -330,11 +402,14 @@ document.addEventListener('DOMContentLoaded', () => {
         audioBlob = null;
         audioName = '';
 
-        // Resume scanning
-        isScanning = false;
-        html5QrCode.resume();
-        document.getElementById('statusMessage').innerHTML =
-            '<span class="info">Ready to scan next QR code...</span>';
+        // Resume scanning only if camera is enabled
+        const cameraToggle = document.getElementById('cameraToggle');
+        if (html5QrCode && cameraAvailable && cameraToggle && cameraToggle.checked) {
+            isScanning = false;
+            html5QrCode.resume();
+            document.getElementById('statusMessage').innerHTML =
+                '<span class="info">Ready to scan next QR code...</span>';
+        }
     };
 
     // Easter egg: Triple-click the back button to simulate watch connection
@@ -360,6 +435,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 clearTimeout(clickTimer);
                 clickCount = 0;
                 triggerWatchEasterEgg();
+            }
+        });
+    }
+
+    // Camera toggle handler
+    const cameraToggle = document.getElementById('cameraToggle');
+    if (cameraToggle) {
+        cameraToggle.addEventListener('change', async (e) => {
+            if (e.target.checked) {
+                // Enable camera
+                await startCamera();
+            } else {
+                // Disable camera
+                await stopCamera();
             }
         });
     }
@@ -390,6 +479,11 @@ function startScanner() {
                 console.log('Back camera not found, using:', devices[0].label);
             }
 
+            // Store camera ID and mark as available
+            currentCameraId = cameraId;
+            cameraAvailable = true;
+            setCameraToggleVisibility(true);
+
             html5QrCode.start(
                 cameraId,
                 config,
@@ -398,6 +492,13 @@ function startScanner() {
             ).then(() => {
                 document.getElementById('statusMessage').innerHTML =
                     '<span class="success">Camera ready! Point at a QR code</span>';
+                updateModeLabel('QR + Watch Scan');
+
+                // Ensure checkbox is checked when camera starts successfully
+                const cameraToggle = document.getElementById('cameraToggle');
+                if (cameraToggle) {
+                    cameraToggle.checked = true;
+                }
 
                 // Adjust reader size to match camera feed after a short delay
                 setTimeout(adjustReaderSize, 500);
@@ -406,17 +507,30 @@ function startScanner() {
                 showToast(`Error starting camera: ${err}`, 'error');
                 document.getElementById('statusMessage').innerHTML =
                     `<span class="error">Error starting camera: ${err}</span>`;
+
+                // Camera permission denied - Watch Scan mode only
+                cameraAvailable = false;
+                setCameraToggleVisibility(false);
+                updateModeLabel('Watch Scan');
             });
         } else {
+            // No cameras found - Watch Scan mode only
             showToast('No cameras found on this device', 'error');
             document.getElementById('statusMessage').innerHTML =
                 '<span class="error">No cameras found on this device</span>';
+            cameraAvailable = false;
+            setCameraToggleVisibility(false);
+            updateModeLabel('Watch Scan');
         }
     }).catch(err => {
+        // Camera permission denied or error - Watch Scan mode only
         console.error('Error getting cameras', err);
         showToast('Error accessing camera. Please grant camera permissions.', 'error');
         document.getElementById('statusMessage').innerHTML =
             '<span class="error">Error accessing camera. Please grant camera permissions.</span>';
+        cameraAvailable = false;
+        setCameraToggleVisibility(false);
+        updateModeLabel('Watch Scan');
     });
 }
 

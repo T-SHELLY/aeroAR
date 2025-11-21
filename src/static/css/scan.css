@@ -11,15 +11,15 @@ body {
 
 #reader {
   width: 95%;
-  height: calc(100vh - 150px);
-  margin: 5px auto;
-  border: 3px solid blue;
-  border-radius: 5px;
+  height: calc(100vh - 20vh);
+  margin: 0.5vh auto;
+  border: 0.3vh solid blue;
+  border-radius: 0.5vh;
   overflow: hidden;
 }
 
 .logo h1 {
-  margin: 5px 0;
+  margin: 0.5vh 0;
   padding: 0;
 }
 
@@ -28,47 +28,45 @@ body {
   bottom: 1%;
   left: 50%;
   transform: translateX(-50%);
-  padding: 8px;
+  padding: 1vh;
   width: 90%;
-  max-width: 500px;
   text-align: center;
   background-color: rgba(240, 240, 240, 0.95);
-  border-radius: 5px;
-  font-size: 0.9em;
+  border-radius: 0.5vh;
+  font-size: 1.6vh;
   z-index: 10;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.3vh 1vh rgba(0, 0, 0, 0.2);
 }
 
 .status {
-  margin: 5px auto;
-  padding: 5px;
+  margin: 0.5vh auto;
+  padding: 0.5vh;
   width: 90%;
-  max-width: 500px;
   text-align: center;
   font-weight: bold;
-  font-size: 0.9em;
+  font-size: 1.6vh;
 }
 
 .success {
   color: green;
   background-color: #d4edda;
-  border-radius: 5px;
-  padding: 10px;
+  border-radius: 0.5vh;
+  padding: 1vh;
 }
 
 .error {
   display: inline-block;
   color: red;
   background-color: #f8d7da;
-  border-radius: 5px;
-  padding: 10px;
+  border-radius: 0.5vh;
+  padding: 1vh;
 }
 
 .info {
   color: #004085;
   background-color: #cce5ff;
-  border-radius: 5px;
-  padding: 10px;
+  border-radius: 0.5vh;
+  padding: 1vh;
 }
 
 #audioResponse {
@@ -76,31 +74,30 @@ body {
   bottom: 1%;
   left: 50%;
   transform: translateX(-50%);
-  padding: 10px;
+  padding: 1vh;
   width: 90%;
-  max-width: 500px;
   background-color: rgba(231, 243, 255, 0.95);
-  border-radius: 5px;
+  border-radius: 0.5vh;
   display: none;
-  font-size: 0.9em;
+  font-size: 1.6vh;
   z-index: 10;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.3vh 1vh rgba(0, 0, 0, 0.2);
   max-height: 40vh;
   overflow-y: auto;
 }
 
 .back-button {
   display: inline-block;
-  border: 2px solid black;
-  border-radius: 5px;
+  border: 0.2vh solid black;
+  border-radius: 0.5vh;
   background-color: blue;
   color: white !important;
   font-weight: bold;
-  padding: 5px 12px;
-  margin: 2px;
+  padding: 0.5vh 1.5vw;
+  margin: 0.2vh;
   text-align: center;
   text-decoration: none;
-  font-size: 0.85em;
+  font-size: 1.4vh;
 }
 #bbutton {
   background-image: url(https://upload.wikimedia.org/wikipedia/commons/3/33/Left_curve_arrow_back_-_black.svg);
@@ -109,11 +106,11 @@ body {
   background-clip: border-box;
   background-color: blue;
   background-origin: border-box;
-  background-size: 30px 30px;
+  background-size: 3vh 3vh;
 }
 #bbutton:active {
   background-color: blueviolet;
-  text-shadow: -5px 5px gray;
+  text-shadow: -0.5vh 0.5vh gray;
 }
 
 /* Modal Styles */
@@ -132,38 +129,38 @@ body {
 
 .modal-content {
   background-color: white;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  padding: 3vh;
+  border-radius: 1vh;
+  box-shadow: 0 0.5vh 2vh rgba(0, 0, 0, 0.3);
   text-align: center;
-  max-width: 400px;
   width: 85%;
+  max-width: 60vw;
 }
 
 .modal-content h3 {
-  margin: 0 0 15px 0;
+  margin: 0 0 2vh 0;
   color: #333;
-  font-size: 1.4em;
+  font-size: 2.5vh;
 }
 
 .modal-content p {
-  margin: 0 0 20px 0;
+  margin: 0 0 2.5vh 0;
   color: #555;
-  font-size: 1em;
+  font-size: 2vh;
 }
 
 .modal-buttons {
   display: flex;
-  gap: 15px;
+  gap: 2vh;
   justify-content: center;
 }
 
 .modal-btn {
-  padding: 10px 30px;
-  font-size: 1em;
+  padding: 1.5vh 4vw;
+  font-size: 2vh;
   font-weight: bold;
   border: none;
-  border-radius: 5px;
+  border-radius: 0.5vh;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -196,8 +193,8 @@ body {
   width: 100%;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  padding: 10px 15px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  padding: 1vh 2vw;
+  box-shadow: 0 0.3vh 1.2vh rgba(0, 0, 0, 0.3);
   z-index: 999;
   animation: slideDown 0.3s ease;
   box-sizing: border-box;
@@ -213,8 +210,8 @@ body {
 }
 
 .audio-info {
-  font-size: 0.9em;
-  margin-bottom: 8px;
+  font-size: 1.6vh;
+  margin-bottom: 1vh;
   text-align: center;
   font-weight: bold;
 }
@@ -222,17 +219,17 @@ body {
 .audio-controls {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 1vh;
   justify-content: center;
 }
 
 .control-btn {
   background-color: rgba(255, 255, 255, 0.2);
   color: white;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 5px;
-  padding: 5px 12px;
-  font-size: 1em;
+  border: 0.1vh solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.5vh;
+  padding: 0.6vh 1.5vw;
+  font-size: 1.8vh;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -253,11 +250,11 @@ body {
 
 .progress-bar {
   flex: 1;
-  height: 6px;
+  height: 0.6vh;
   -webkit-appearance: none;
   appearance: none;
   background: rgba(255, 255, 255, 0.3);
-  border-radius: 5px;
+  border-radius: 0.5vh;
   outline: none;
   cursor: pointer;
 }
@@ -265,26 +262,88 @@ body {
 .progress-bar::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 15px;
-  height: 15px;
+  width: 1.8vh;
+  height: 1.8vh;
   background: white;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 0.5vh rgba(0, 0, 0, 0.3);
 }
 
 .progress-bar::-moz-range-thumb {
-  width: 15px;
-  height: 15px;
+  width: 1.8vh;
+  height: 1.8vh;
   background: white;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 0.5vh rgba(0, 0, 0, 0.3);
   border: none;
 }
 
 #audioTime {
-  font-size: 0.85em;
-  min-width: 100px;
+  font-size: 1.5vh;
+  min-width: 12vw;
   text-align: center;
+}
+
+/* Mode Controls Styles */
+.mode-controls {
+  position: fixed;
+  top: 1vh;
+  left: 1vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+  z-index: 1001;
+  transition: top 0.3s ease;
+}
+
+.mode-controls.with-audio {
+  top: 12vh;
+}
+
+#modeLabel {
+  font-weight: bold;
+  font-size: 1.8vh;
+  background: linear-gradient(135deg, #3a7bd5 0%, #00d2ff 100%);
+  color: white;
+  padding: 1vh 2vw;
+  border-radius: 3vh;
+  box-shadow: 0 0.3vh 1vh rgba(0, 0, 0, 0.2);
+  text-align: center;
+  white-space: nowrap;
+}
+
+#cameraToggleContainer {
+  display: none;
+  align-items: center;
+  gap: 1vw;
+  cursor: pointer;
+  font-size: 1.6vh;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 1vh 1.5vw;
+  border-radius: 3vh;
+  box-shadow: 0 0.3vh 1vh rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+#cameraToggleContainer:hover {
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 0.4vh 1.2vh rgba(0, 0, 0, 0.25);
+  transform: translateY(-0.1vh);
+}
+
+#cameraToggle {
+  cursor: pointer;
+  width: 2vh;
+  height: 2vh;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+#cameraToggleContainer span {
+  color: #333;
+  font-weight: 500;
+  user-select: none;
 }

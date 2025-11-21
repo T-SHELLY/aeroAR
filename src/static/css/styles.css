@@ -60,8 +60,8 @@ a:active {
   font-weight: bold;
   margin-left: 15%;
   margin-right: 15%;
-  margin-top: 10%;
-  margin-bottom: 25%;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
   padding: 15px;
   font-size: x-large;
   text-align: center;
@@ -146,4 +146,143 @@ a.sources_link:link {
   text-align: center;
   display: block;
   margin: 50% auto auto auto;
+}
+
+/* Flexbox layout for all screens */
+body {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1vh 0 2vh 0;
+}
+
+/* Logo image responsive styling */
+.logo img {
+  width: 15vw;
+  max-width: 20vh;
+  height: auto;
+  display: block;
+  margin: 0.5vh auto;
+}
+
+.logo {
+  flex: 0 0 auto;
+  margin-bottom: 0.5vh;
+}
+
+#logoimg {
+  background-size: 15vw 15vw;
+}
+
+/* Centered tagline */
+.centered {
+  flex: 0 0 auto;
+}
+
+.centered h3 {
+  margin: 0.5vh 0;
+  font-size: 2vh;
+}
+
+/* Button containers - grow to fill space */
+body > div:has(.button) {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 0;
+}
+
+/* Buttons fill available space evenly */
+.button {
+  flex: 1 1 0;
+  margin: 0.5vh 15%;
+  padding: 0;
+  font-size: 2.5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+}
+
+/* Footer container and text */
+body > div:has(.footer) {
+  flex: 0 0 auto;
+  padding: 1vh 0;
+}
+
+.footer {
+  margin: 0;
+  padding: 1vh 2vw;
+  flex-shrink: 0;
+  font-size: 1.5vh;
+  line-height: 1.5;
+}
+
+/* Responsive adjustments for narrow screens */
+@media screen and (max-width: 768px) {
+  body {
+    padding: 1vh 0 3vh 0;
+  }
+
+  .logo img {
+    width: 25vw;
+    max-width: 18vh;
+  }
+
+  #logoimg {
+    background-size: 20vw 20vw;
+  }
+
+  .centered h3 {
+    font-size: 2.2vh;
+  }
+
+  .button {
+    font-size: 2.8vh;
+  }
+
+  body > div:has(.footer) {
+    padding: 1.5vh 0;
+  }
+
+  .footer {
+    font-size: 1.6vh;
+    padding: 1.5vh 2vw;
+  }
+}
+
+/* Extra small screens */
+@media screen and (max-width: 480px) {
+  body {
+    padding: 1vh 0 4vh 0;
+  }
+
+  .logo img {
+    width: 30vw;
+    max-width: 15vh;
+  }
+
+  #logoimg {
+    background-size: 25vw 25vw;
+  }
+
+  .centered h3 {
+    font-size: 2.5vh;
+  }
+
+  .button {
+    font-size: 3vh;
+  }
+
+  body > div:has(.footer) {
+    padding: 2vh 0;
+  }
+
+  .footer {
+    font-size: 1.8vh;
+    padding: 2vh 2vw;
+  }
 }
