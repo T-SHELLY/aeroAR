@@ -11,3 +11,4 @@ dist/
 uv.lock
 
 tools/*.png
+SUMMARY.md

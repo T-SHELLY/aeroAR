@@ -1,39 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>AeroQR</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link rel="stylesheet" href="css/styles.css" />
-  </head>
 
-  <body>
-    <div class="logo" id="logoimg">
-      <a href="index.html">
+<head>
+  <meta charset="UTF-8" />
+  <title>AeroQR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <a href="index.html" class="logo">
         <img src="images/logo-transparent.png" alt="AeroQR Logo" />
       </a>
-    </div>
+      <h3 class="tagline">Scan. Learn. Repair.</h3>
+    </header>
 
-    <div class="centered">
-      <h3>Scan. Learn. Repair.</h3>
-    </div>
+    <main>
+      <nav>
+        <a href="scan.html" class="button">
+          <!-- QR Scan Icon -->
+          <svg class="button-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 4v1m6 11h2m-6 0h-2v4h-4v-4H8m13-9.5A2.5 2.5 0 0018.5 2 2.5 2.5 0 0016 4.5V10h5V4.5zM8 4.5A2.5 2.5 0 005.5 2 2.5 2.5 0 003 4.5V10h5V4.5zM12 13.5h.01M5 20h.01M19 20h.01M12 20h.01" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h18v18H3z" style="display:none;" />
+            <!-- Fallback generic -->
+            <rect x="2" y="2" width="20" height="20" rx="2" stroke-width="2" />
+            <path d="M7 7h3v3H7zM14 7h3v3h-3zM7 14h3v3H7zM14 14h3v3h-3z" />
+          </svg>
+          Start Scanning
+        </a>
 
-    <div>
-      <a href="scan.html" class="button" id="button1">Start Scanning</a>
-    </div>
+        <a href="previous.html" class="button">
+          <!-- Book Icon -->
+          <svg class="button-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+          Glossary
+        </a>
 
-    <div>
-      <a href="previous.html" class="button" id="button2">Glossary</a>
-    </div>
+        <a href="credits.html" class="button">
+          <!-- Globe/Info Icon -->
+          <svg class="button-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Credits
+        </a>
+      </nav>
+    </main>
 
-    <div>
-      <a href="credits.html" class="button" id="button3">Credits</a>
-    </div>
+    <footer>
+      <p>Prototype: For development use only. Subject to change.</p>
+    </footer>
+  </div>
+</body>
 
-    <div>
-      <p class="footer">
-        Prototype: For development use only. Subject to change.
-      </p>
-    </div>
-  </body>
 </html>

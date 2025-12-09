@@ -1,349 +1,404 @@
-/* Scan page specific styles */
+/* Scan page specific styles - Revamped */
+
+:root {
+  --safe-top: env(safe-area-inset-top, 20px);
+  --safe-bottom: env(safe-area-inset-bottom, 20px);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 html,
 body {
   margin: 0;
   padding: 0;
-  height: 100%;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
-  position: relative;
+  background-color: #000;
+  /* Black background for camera feel */
+  font-family: var(--font-family-base);
 }
+
+/* 
+   Layout Strategy: 
+   - #reader (Camera) is fixed full screen.
+   - .ui-layer is position absolute on top.
+*/
 
 #reader {
-  width: 95%;
-  height: calc(100vh - 20vh);
-  margin: 0.5vh auto;
-  border: 0.3vh solid blue;
-  border-radius: 0.5vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
   overflow: hidden;
 }
 
-.logo h1 {
-  margin: 0.5vh 0;
-  padding: 0;
+#reader video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
 }
 
-#result {
-  position: fixed;
-  bottom: 1%;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 1vh;
-  width: 90%;
-  text-align: center;
-  background-color: rgba(240, 240, 240, 0.95);
-  border-radius: 0.5vh;
-  font-size: 1.6vh;
-  z-index: 10;
-  box-shadow: 0 0.3vh 1vh rgba(0, 0, 0, 0.2);
-}
-
-.status {
-  margin: 0.5vh auto;
-  padding: 0.5vh;
-  width: 90%;
-  text-align: center;
-  font-weight: bold;
-  font-size: 1.6vh;
-}
-
-.success {
-  color: green;
-  background-color: #d4edda;
-  border-radius: 0.5vh;
-  padding: 1vh;
-}
-
-.error {
-  display: inline-block;
-  color: red;
-  background-color: #f8d7da;
-  border-radius: 0.5vh;
-  padding: 1vh;
-}
-
-.info {
-  color: #004085;
-  background-color: #cce5ff;
-  border-radius: 0.5vh;
-  padding: 1vh;
-}
-
-#audioResponse {
-  position: fixed;
-  bottom: 1%;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 1vh;
-  width: 90%;
-  background-color: rgba(231, 243, 255, 0.95);
-  border-radius: 0.5vh;
-  display: none;
-  font-size: 1.6vh;
-  z-index: 10;
-  box-shadow: 0 0.3vh 1vh rgba(0, 0, 0, 0.2);
-  max-height: 40vh;
-  overflow-y: auto;
-}
-
-.back-button {
-  display: inline-block;
-  border: 0.2vh solid black;
-  border-radius: 0.5vh;
-  background-color: blue;
-  color: white !important;
-  font-weight: bold;
-  padding: 0.5vh 1.5vw;
-  margin: 0.2vh;
-  text-align: center;
-  text-decoration: none;
-  font-size: 1.4vh;
-}
-#bbutton {
-  background-image: url(https://upload.wikimedia.org/wikipedia/commons/3/33/Left_curve_arrow_back_-_black.svg);
-  background-repeat: no-repeat;
-  background-position: center -20%;
-  background-clip: border-box;
-  background-color: blue;
-  background-origin: border-box;
-  background-size: 3vh 3vh;
-}
-#bbutton:active {
-  background-color: blueviolet;
-  text-shadow: -0.5vh 0.5vh gray;
-}
-
-/* Modal Styles */
-.modal {
-  position: fixed;
-  z-index: 1000;
-  left: 0;
+.ui-layer {
+  position: absolute;
   top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  background-color: white;
-  padding: 3vh;
-  border-radius: 1vh;
-  box-shadow: 0 0.5vh 2vh rgba(0, 0, 0, 0.3);
-  text-align: center;
-  width: 85%;
-  max-width: 60vw;
-}
-
-.modal-content h3 {
-  margin: 0 0 2vh 0;
-  color: #333;
-  font-size: 2.5vh;
-}
-
-.modal-content p {
-  margin: 0 0 2.5vh 0;
-  color: #555;
-  font-size: 2vh;
-}
-
-.modal-buttons {
-  display: flex;
-  gap: 2vh;
-  justify-content: center;
-}
-
-.modal-btn {
-  padding: 1.5vh 4vw;
-  font-size: 2vh;
-  font-weight: bold;
-  border: none;
-  border-radius: 0.5vh;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.yes-btn {
-  background-color: #28a745;
-  color: white;
-}
-
-.yes-btn:hover {
-  background-color: #218838;
-  transform: scale(1.05);
-}
-
-.no-btn {
-  background-color: #dc3545;
-  color: white;
-}
-
-.no-btn:hover {
-  background-color: #c82333;
-  transform: scale(1.05);
-}
-
-/* Audio Player Bar Styles */
-.audio-player-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 1vh 2vw;
-  box-shadow: 0 0.3vh 1.2vh rgba(0, 0, 0, 0.3);
-  z-index: 999;
-  animation: slideDown 0.3s ease;
-  box-sizing: border-box;
-}
-
-@keyframes slideDown {
-  from {
-    transform: translateY(-100%);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-.audio-info {
-  font-size: 1.6vh;
-  margin-bottom: 1vh;
-  text-align: center;
-  font-weight: bold;
-}
-
-.audio-controls {
-  display: flex;
-  align-items: center;
-  gap: 1vh;
-  justify-content: center;
-}
-
-.control-btn {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: 0.1vh solid rgba(255, 255, 255, 0.3);
-  border-radius: 0.5vh;
-  padding: 0.6vh 1.5vw;
-  font-size: 1.8vh;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.control-btn:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-  transform: scale(1.1);
-}
-
-.remove-btn {
-  background-color: rgba(220, 53, 69, 0.8);
-  font-weight: bold;
-}
-
-.remove-btn:hover {
-  background-color: rgba(200, 35, 51, 0.9);
-}
-
-.progress-bar {
-  flex: 1;
-  height: 0.6vh;
-  -webkit-appearance: none;
-  appearance: none;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 0.5vh;
-  outline: none;
-  cursor: pointer;
-}
-
-.progress-bar::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 1.8vh;
-  height: 1.8vh;
-  background: white;
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0 0 0.5vh rgba(0, 0, 0, 0.3);
-}
-
-.progress-bar::-moz-range-thumb {
-  width: 1.8vh;
-  height: 1.8vh;
-  background: white;
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0 0 0.5vh rgba(0, 0, 0, 0.3);
-  border: none;
-}
-
-#audioTime {
-  font-size: 1.5vh;
-  min-width: 12vw;
-  text-align: center;
-}
-
-/* Mode Controls Styles */
-.mode-controls {
-  position: fixed;
-  top: 1vh;
-  left: 1vw;
+  z-index: 10;
+  pointer-events: none;
+  /* Allow touches to pass to controls mostly */
   display: flex;
   flex-direction: column;
-  gap: 1vh;
-  z-index: 1001;
-  transition: top 0.3s ease;
-}
-
-.mode-controls.with-audio {
-  top: 12vh;
-}
-
-#modeLabel {
-  font-weight: bold;
-  font-size: 1.8vh;
-  background: linear-gradient(135deg, #3a7bd5 0%, #00d2ff 100%);
-  color: white;
-  padding: 1vh 2vw;
-  border-radius: 3vh;
-  box-shadow: 0 0.3vh 1vh rgba(0, 0, 0, 0.2);
-  text-align: center;
-  white-space: nowrap;
-}
-
-#cameraToggleContainer {
-  display: none;
+  justify-content: space-between;
+  padding-top: calc(var(--safe-top) + 10px);
+  padding-bottom: calc(var(--safe-bottom) + 20px);
+  padding-left: var(--spacing-md);
+  padding-right: var(--spacing-md);
   align-items: center;
-  gap: 1vw;
+  /* Horizontally center everything */
+}
+
+/* --- Top Bar --- */
+.scan-header {
+  pointer-events: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  /* Remove margin: 0 auto bc parent aligns center, but it's fine to keep for safety */
+  margin: 0 auto;
+}
+
+.icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  gap: 8px;
+  transition: transform 0.2s ease, background-color 0.2s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.icon-button:active {
+  transform: scale(0.95);
+  background-color: rgba(255, 255, 255, 0.35);
+}
+
+.toggle-switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 6px 12px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
   cursor: pointer;
-  font-size: 1.6vh;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.toggle-switch input {
+  accent-color: var(--color-primary);
+  width: 16px;
+  height: 16px;
+}
+
+.toggle-switch span {
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* --- Bottom Area --- */
+.scan-footer {
+  pointer-events: none;
+  /* Children will have auto */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Center children horizontally */
+  justify-content: flex-end;
+  gap: 16px;
+  width: 100%;
+  max-width: 500px;
+  /* Constrain width */
+  margin: 0 auto;
+}
+
+/* Status / Result Card */
+.status-card {
+  pointer-events: auto;
   background: rgba(255, 255, 255, 0.95);
-  padding: 1vh 1.5vw;
-  border-radius: 3vh;
-  box-shadow: 0 0.3vh 1vh rgba(0, 0, 0, 0.15);
-  transition: all 0.2s ease;
-  white-space: nowrap;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 12px 16px;
+  border-radius: 16px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 10px 15px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
-#cameraToggleContainer:hover {
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0 0.4vh 1.2vh rgba(0, 0, 0, 0.25);
-  transform: translateY(-0.1vh);
+.status-card.hidden {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  display: none;
+  /* Actually remove it so it doesnt take space */
 }
 
-#cameraToggle {
-  cursor: pointer;
-  width: 2vh;
-  height: 2vh;
+#resultText {
   margin: 0;
+  font-size: 0.95rem;
+  color: #1f2937;
+  font-weight: 500;
+}
+
+#statusMessage {
+  margin-bottom: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-primary);
+}
+
+/* Audio Player "Island" */
+.audio-island {
+  pointer-events: auto;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  width: 100%;
+  padding: 16px;
+  /* Slightly reduced padding */
+  border-radius: 20px;
+  /* Tighter, sharper shadow as requested + a softer ambient one */
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.track-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.track-icon {
+  width: 42px;
+  height: 42px;
+  background: var(--color-primary);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
   flex-shrink: 0;
 }
 
-#cameraToggleContainer span {
-  color: #333;
+.track-details {
+  flex: 1;
+  overflow: hidden;
+}
+
+.track-title {
+  font-weight: 700;
+  color: #1f2937;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1rem;
+}
+
+.track-time {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.play-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-text-main);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s;
+}
+
+.play-btn:active {
+  transform: scale(0.9);
+}
+
+.stop-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fee2e2;
+  color: #ef4444;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s;
+}
+
+.stop-btn:active {
+  background: #fecaca;
+  transform: scale(0.9);
+}
+
+input[type=range] {
+  flex: 1;
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 99px;
+  appearance: none;
+  cursor: pointer;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.2);
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  padding: 20px;
+}
+
+.modal-content {
+  background: white;
+  padding: 24px;
+  border-radius: 20px;
+  text-align: center;
+  width: 100%;
+  max-width: 320px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.btn-primary,
+.btn-secondary {
+  flex: 1;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: white;
+}
+
+.btn-secondary {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+/* Toastify Customization */
+.toastify {
+  border-radius: 12px !important;
+  font-family: inherit !important;
+  font-weight: 500 !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+  padding: 12px 16px !important;
+}
+
+/* Camera Off Placeholder */
+#cameraOffPlaceholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  /* Above reader (0) but below UI (10) */
+  background-color: #111827;
+  /* Dark gray/black theme */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  gap: 16px;
+}
+
+#cameraOffPlaceholder p {
+  margin: 0;
+  font-size: 1.1rem;
   font-weight: 500;
-  user-select: none;
+  letter-spacing: 0.025em;
 }

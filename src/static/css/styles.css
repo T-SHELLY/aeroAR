@@ -1,288 +1,138 @@
-* {
-  font-family: Arial, Helvetica, sans-serif;
+@import url('variables.css');
+
+/* Modern Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
+
 body {
-  background-color: rgb(236, 236, 236);
-}
-h3 {
-  max-height: fit-content;
-  text-align: center;
-}
-h1 {
-  margin-bottom: 0%;
-  padding-bottom: 0%;
-}
-h2 {
-  text-align: center;
-}
-p {
-  text-align: center;
-}
-
-.logo {
-  text-decoration: none;
-  text-align: center;
-  align-content: center;
-  font-size: 175%;
-  text-shadow: 2px -2px blueviolet;
-}
-#logoimg {
-  background-image: url(https://upload.wikimedia.org/wikipedia/commons/9/95/Globe_eye_icon.svg);
-  background-repeat: no-repeat;
-  background-position: right center;
-  background-clip: border-box;
-  background-origin: border-box;
-  background-size: 200px 200px;
-  background-blend-mode: darken;
-}
-
-a:link {
-  text-decoration: none;
-  color: black;
-  transition: text-shadow 0.1s;
-}
-
-a:active {
-  color: blueviolet;
-  text-shadow: -5px 5px black;
-}
-
-.centered {
-  align-content: center;
-}
-
-.button {
-  display: block;
-  border: 2px solid black;
-  border-radius: 5%;
-  background-color: blue;
-  color: white !important;
-  font-weight: bold;
-  margin-left: 15%;
-  margin-right: 15%;
-  margin-top: 2vh;
-  margin-bottom: 2vh;
-  padding: 15px;
-  font-size: x-large;
-  text-align: center;
-}
-.button:active {
-  background-color: blueviolet;
-}
-#button1 {
-  background-image: url(https://upload.wikimedia.org/wikipedia/commons/4/41/QR_Code_Example.svg),
-    url(https://upload.wikimedia.org/wikipedia/commons/7/75/NFC_logo.svg);
-  background-repeat: no-repeat;
-  background-position: 10% -20%, 90% -20%;
-  background-clip: border-box;
-  background-color: blue;
-  background-origin: border-box;
-  background-size: 90px 90px;
-  transition: background-position 0.1s, font-size 0.1s, background-color 0.1s;
-}
-#button1:active {
-  background-color: blueviolet;
-  background-position: 10% -10%, 90% -10%;
-  text-shadow: -5px 5px gray;
-  font-size: 29px;
-}
-#button2 {
-  background-image: url(https://upload.wikimedia.org/wikipedia/commons/f/f0/Book_%281606%29_-_The_Noun_Project.svg);
-  background-repeat: no-repeat;
-  background-position: center -20%;
-  background-clip: border-box;
-  background-color: blue;
-  background-origin: border-box;
-  background-size: 90px 90px;
-  transition: background-position 0.1s, font-size 0.1s, background-color 0.1s;
-}
-#button2:active {
-  background-color: blueviolet;
-  background-position: center -10%;
-  text-shadow: -5px 5px gray;
-  font-size: 29px;
-}
-#button3 {
-  background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/c4/Globe_icon.svg);
-  background-repeat: no-repeat;
-  background-position: center -20%;
-  background-clip: border-box;
-  background-color: blue;
-  background-origin: border-box;
-  background-size: 90px 90px;
-  transition: background-position 0.1s, font-size 0.1s, background-color 0.1s;
-}
-#button3:active {
-  background-color: blueviolet;
-  background-position: center -10%;
-  text-shadow: -5px 5px gray;
-  font-size: 29px;
-}
-
-a.sources_link:link {
-  display: block;
-  padding: 5px;
-  color: blue;
-  font-size: x-large;
-  word-wrap: break-word;
-  transition: none;
-  text-shadow: none;
-  text-align: center;
-}
-
-.easy_read {
-  font-size: larger;
-}
-.easy_read_light {
-  font-size: larger;
-  font-style: italic;
-}
-
-.footer {
-  font-style: italic;
-  font-size: smaller;
-  color: lightgray;
-  position: relative;
-  text-align: center;
-  display: block;
-  margin: 50% auto auto auto;
-}
-
-/* Flexbox layout for all screens */
-body {
+  font-family: var(--font-family-base);
+  background-color: var(--color-background);
+  color: var(--color-text-main);
+  line-height: 1.5;
   height: 100vh;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 1vh 0 2vh 0;
 }
 
-/* Logo image responsive styling */
-.logo img {
-  width: 15vw;
-  max-width: 20vh;
-  height: auto;
-  display: block;
-  margin: 0.5vh auto;
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.2;
+  font-weight: 700;
+  color: var(--color-text-main);
 }
 
-.logo {
-  flex: 0 0 auto;
-  margin-bottom: 0.5vh;
+h3 {
+  font-size: var(--font-size-xl);
+  text-align: center;
+  margin-bottom: var(--spacing-sm);
 }
 
-#logoimg {
-  background-size: 15vw 15vw;
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color var(--transition-fast);
 }
 
-/* Centered tagline */
-.centered {
-  flex: 0 0 auto;
-}
-
-.centered h3 {
-  margin: 0.5vh 0;
-  font-size: 2vh;
-}
-
-/* Button containers - grow to fill space */
-body > div:has(.button) {
-  flex: 1 1 0;
+/* Layout Containers */
+.container {
+  width: 100%;
+  max-width: 600px;
+  /* Constrain width for mobile-first/app-like feel */
+  margin: 0 auto;
+  padding: var(--spacing-md);
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 0;
 }
 
-/* Buttons fill available space evenly */
+/* Header / Logo */
+header {
+  text-align: center;
+  padding: var(--spacing-xl) 0 var(--spacing-md);
+}
+
+.logo img {
+  width: 120px;
+  height: auto;
+  margin-bottom: var(--spacing-sm);
+  filter: drop-shadow(var(--shadow-sm));
+}
+
+.tagline {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+}
+
+/* Navigation / Buttons */
+nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  width: 100%;
+}
+
 .button {
-  flex: 1 1 0;
-  margin: 0.5vh 15%;
-  padding: 0;
-  font-size: 2.5vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 0;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  background-color: var(--color-surface);
+  color: var(--color-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  font-weight: 600;
+  font-size: var(--font-size-lg);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+  cursor: pointer;
 }
 
-/* Footer container and text */
-body > div:has(.footer) {
-  flex: 0 0 auto;
-  padding: 1vh 0;
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary);
+  color: var(--color-primary-hover);
 }
 
-.footer {
-  margin: 0;
-  padding: 1vh 2vw;
+.button:active {
+  transform: translateY(0);
+  background-color: var(--color-background);
+}
+
+/* Icon placement styling */
+.button-icon {
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
-  font-size: 1.5vh;
-  line-height: 1.5;
 }
 
-/* Responsive adjustments for narrow screens */
-@media screen and (max-width: 768px) {
-  body {
-    padding: 1vh 0 3vh 0;
-  }
-
-  .logo img {
-    width: 25vw;
-    max-width: 18vh;
-  }
-
-  #logoimg {
-    background-size: 20vw 20vw;
-  }
-
-  .centered h3 {
-    font-size: 2.2vh;
-  }
-
-  .button {
-    font-size: 2.8vh;
-  }
-
-  body > div:has(.footer) {
-    padding: 1.5vh 0;
-  }
-
-  .footer {
-    font-size: 1.6vh;
-    padding: 1.5vh 2vw;
-  }
+/* Footer */
+footer {
+  text-align: center;
+  padding: var(--spacing-lg);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  margin-top: auto;
 }
 
-/* Extra small screens */
-@media screen and (max-width: 480px) {
-  body {
-    padding: 1vh 0 4vh 0;
-  }
-
-  .logo img {
-    width: 30vw;
-    max-width: 15vh;
-  }
-
-  #logoimg {
-    background-size: 25vw 25vw;
-  }
-
-  .centered h3 {
-    font-size: 2.5vh;
-  }
-
-  .button {
-    font-size: 3vh;
-  }
-
-  body > div:has(.footer) {
-    padding: 2vh 0;
-  }
-
-  .footer {
-    font-size: 1.8vh;
-    padding: 2vh 2vw;
+/* Responsive */
+@media (min-width: 640px) {
+  h3 {
+    font-size: var(--font-size-2xl);
   }
 }

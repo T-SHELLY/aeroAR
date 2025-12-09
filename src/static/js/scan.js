@@ -37,6 +37,11 @@ async function stopCamera() {
             document.getElementById('statusMessage').innerHTML =
                 '<span class="info">Camera disabled. Watch Scan mode active.</span>';
             updateModeLabel('Watch Scan');
+
+            // Show Camera Off Placeholder
+            const placeholder = document.getElementById('cameraOffPlaceholder');
+            if (placeholder) placeholder.style.display = 'flex';
+
         } catch (err) {
             console.error('Error stopping camera:', err);
         }
@@ -58,6 +63,10 @@ async function startCamera() {
             '<span class="success">Camera ready! Point at a QR code</span>';
         updateModeLabel('QR + Watch Scan');
 
+        // Hide Camera Off Placeholder
+        const placeholder = document.getElementById('cameraOffPlaceholder');
+        if (placeholder) placeholder.style.display = 'none';
+
         // Adjust reader size to match camera feed after a short delay
         setTimeout(adjustReaderSize, 500);
     } catch (err) {
@@ -65,15 +74,19 @@ async function startCamera() {
         showToast(`Error starting camera: ${err}`, 'error');
         document.getElementById('statusMessage').innerHTML =
             `<span class="error">Error starting camera: ${err}</span>`;
+
+        // Ensure placeholder is shown if camera fails
+        const placeholder = document.getElementById('cameraOffPlaceholder');
+        if (placeholder) placeholder.style.display = 'flex';
     }
 }
 
 // Helper function to show toast notifications
 function showToast(message, type = 'info', duration = 3000) {
-    const backgrounds = {
-        error: 'linear-gradient(to right, #4a5568, #2d3748)',  // Dark blue-gray for errors
-        success: 'linear-gradient(to right, #3a7bd5, #00d2ff)', // Blue gradient for success
-        info: 'linear-gradient(to right, #00d2ff, #3a7bd5)'     // Light to dark blue for info
+    const classNames = {
+        error: 'toast-error',
+        success: 'toast-success',
+        info: 'toast-info'
     };
 
     Toastify({
@@ -82,10 +95,8 @@ function showToast(message, type = 'info', duration = 3000) {
         gravity: 'top',
         position: 'center',
         stopOnFocus: true,
-        style: {
-            background: backgrounds[type] || backgrounds.info,
-        },
-        onClick: function(){} // Callback after click
+        className: classNames[type] || classNames.info,
+        onClick: function () { } // Callback after click
     }).showToast();
 }
 
@@ -94,17 +105,11 @@ function adjustReaderSize() {
     const readerDiv = document.getElementById('reader');
     const video = readerDiv.querySelector('video');
 
-    if (video && video.videoHeight > 0) {
-        // Calculate the displayed height based on video aspect ratio
-        const videoAspectRatio = video.videoWidth / video.videoHeight;
-        const readerWidth = readerDiv.offsetWidth;
-        const calculatedHeight = readerWidth / videoAspectRatio;
-
-        // Only adjust if the camera feed is smaller than the container
-        const currentHeight = readerDiv.offsetHeight;
-        if (calculatedHeight < currentHeight) {
-            readerDiv.style.height = `${calculatedHeight}px`;
-        }
+    if (video) {
+        // Force the video to cover the container
+        video.style.width = '100%';
+        video.style.height = '100%';
+        video.style.objectFit = 'cover';
     }
 }
 
@@ -220,7 +225,11 @@ function initializeAudioPlayer() {
     document.getElementById('audioTitle').textContent = audioName;
 
     // Show player bar
-    document.getElementById('audioPlayerBar').style.display = 'block';
+    document.getElementById('audioPlayerBar').style.display = 'flex';
+
+    // Hide Status Card to prevent overlap
+    const statusCard = document.getElementById('statusCard');
+    if (statusCard) statusCard.style.display = 'none';
 
     // Hide mode controls when audio is playing
     const modeControls = document.getElementById('modeControls');
@@ -249,10 +258,10 @@ function setupAudioControls() {
     playPauseBtn.onclick = () => {
         if (currentAudio.paused) {
             currentAudio.play();
-            playPauseBtn.textContent = '⏸';
+            playPauseBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>'; // Pause Icon
         } else {
             currentAudio.pause();
-            playPauseBtn.textContent = '▶';
+            playPauseBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>'; // Play Icon
         }
     };
 
@@ -284,11 +293,11 @@ function setupAudioControls() {
 
     // Update play button state
     currentAudio.onplay = () => {
-        playPauseBtn.textContent = '⏸';
+        playPauseBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>';
     };
 
     currentAudio.onpause = () => {
-        playPauseBtn.textContent = '▶';
+        playPauseBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>';
     };
 }
 
@@ -300,6 +309,11 @@ function removeAudioPlayer() {
     }
 
     document.getElementById('audioPlayerBar').style.display = 'none';
+
+    // Show Status Card again
+    const statusCard = document.getElementById('statusCard');
+    if (statusCard) statusCard.style.display = 'block';
+
     audioBlob = null;
     audioName = '';
 
@@ -468,8 +482,8 @@ function startScanner() {
             const backCamera = devices.find(device => {
                 const label = device.label.toLowerCase();
                 return label.includes('back') ||
-                       label.includes('rear') ||
-                       label.includes('environment');
+                    label.includes('rear') ||
+                    label.includes('environment');
             });
 
             if (backCamera) {
