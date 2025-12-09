@@ -19,6 +19,22 @@ body {
   flex-direction: column;
 }
 
+/* Logo Text Rebrand */
+.logo-text {
+  font-family: var(--font-family-headings);
+  font-weight: 800;
+  font-size: 2.5rem;
+  color: var(--color-primary);
+  margin: 0;
+  letter-spacing: -0.05em;
+  text-decoration: none;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
 /* Typography */
 h1,
 h2,

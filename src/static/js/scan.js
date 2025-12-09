@@ -38,6 +38,9 @@ async function stopCamera() {
                 '<span class="info">Camera disabled. Watch Scan mode active.</span>';
             updateModeLabel('Watch Scan');
 
+            // Update result text for Watch Mode
+            document.getElementById('resultText').innerHTML = 'Watch Mode Active';
+
             // Show Camera Off Placeholder
             const placeholder = document.getElementById('cameraOffPlaceholder');
             if (placeholder) placeholder.style.display = 'flex';
@@ -62,6 +65,9 @@ async function startCamera() {
         document.getElementById('statusMessage').innerHTML =
             '<span class="success">Camera ready! Point at a QR code</span>';
         updateModeLabel('QR + Watch Scan');
+
+        // Restore result text for Camera Mode
+        document.getElementById('resultText').innerHTML = 'Point camera at a QR code';
 
         // Hide Camera Off Placeholder
         const placeholder = document.getElementById('cameraOffPlaceholder');
