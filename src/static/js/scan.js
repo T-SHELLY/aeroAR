@@ -446,7 +446,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 clickTimer = setTimeout(() => {
                     // If only single click, navigate after delay
                     if (clickCount === 1) {
-                        window.location.href = 'index.html';
+                        window.location.href = '/';
                     }
                     clickCount = 0;
                 }, 600); // 600ms window for triple-click

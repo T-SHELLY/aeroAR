@@ -10,7 +10,7 @@ services:
       # Mount source code for development (hot-reload)
       - ../src:/app/src
       # Persist audio files
-      - ../src/audios:/app/src/audios
+      - ../src/modules:/app/src/modules
     environment:
       - FLASK_ENV=development
       - FLASK_DEBUG=1

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>AeroScan - Create Module</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/create_module.css') }}">
+</head>
+
+<body>
+    <div class="container" style="max-width: 900px;">
+        <header>
+            <a href="/" class="logo">
+                <h1 class="logo-text">AeroScan</h1>
+            </a>
+            <h3 class="tagline">Create New Module</h3>
+        </header>
+
+        <main style="align-items: flex-start; width: 100%;">
+            <form action="/trainer/create_module" method="POST" enctype="multipart/form-data" id="moduleForm"
+                style="width: 100%;">
+
+                <div style="margin-bottom: 24px;">
+                    <label
+                        style="display: block; font-weight: 600; margin-bottom: 8px; color: var(--color-text-main);">Module
+                        Name *</label>
+                    <input type="text" name="module_name" required placeholder="e.g. Boeing 737 Engine Maintenance"
+                        style="font-size: 1.1rem; padding: 12px; width: 100%;">
+                </div>
+
+                <div class="module-table-container">
+                    <table id="moduleTable">
+                        <thead>
+                            <tr>
+                                <th style="width: 25%;">Name *</th>
+                                <th style="width: 30%;">Audio File *</th>
+                                <th style="width: 35%;">Transcript (Optional)</th>
+                                <th style="width: 10%;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows will be added dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <button type="button" class="button" id="addRowBtn" style="width: auto; margin-bottom: 24px;">
+                    <svg class="button-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Add Row
+                </button>
+
+                <hr style="border: 0; border-top: 1px solid var(--color-border); margin: 0 0 24px 0;">
+
+                <div style="display: flex; justify-content: flex-end; gap: 16px;">
+                    <a href="/" class="button" style="background: transparent; border-color: transparent;">Cancel</a>
+                    <button type="submit" class="button">Upload Module</button>
+                </div>
+            </form>
+        </main>
+
+        <footer>
+            <p>Prototype: For development use only.</p>
+        </footer>
+    </div>
+
+    <!-- Mobile Warning Modal -->
+    <div id="mobileWarningModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3>Desktop Recommended</h3>
+            <p style="margin-top: 12px; color: var(--color-text-muted);">
+                Creating modules involves managing multiple files and text fields, which is much easier on a desktop
+                screen.
+            </p>
+            <div class="modal-actions">
+                <a href="/" class="button" style="background: transparent; border-color: var(--color-border);">Go
+                    Back</a>
+                <button id="continueBtn" class="button">Continue Anyway</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+        // --- 1. Mobile Check ---
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.innerWidth < 768) {
+                document.getElementById('mobileWarningModal').style.display = 'flex';
+            }
+        });
+
+        document.getElementById('continueBtn').addEventListener('click', () => {
+            document.getElementById('mobileWarningModal').style.display = 'none';
+        });
+
+        // --- 2. Dynamic Table Logic ---
+        const tableBody = document.querySelector('#moduleTable tbody');
+
+        function addRow() {
+            const rowCount = tableBody.children.length;
+            const tr = document.createElement('tr');
+
+            tr.innerHTML = `
+                <td>
+                    <input type="text" name="names[]" placeholder="Item Name (e.g. Engine)" required>
+                </td>
+                <td>
+                    <input type="file" name="files[]" accept="audio/*" required>
+                </td>
+                <td>
+                    <input type="text" name="transcripts[]" placeholder="Auto-generated if empty">
+                </td>
+                <td>
+                    <button type="button" class="action-btn" onclick="removeRow(this)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </td>
+            `;
+            tableBody.appendChild(tr);
+        }
+
+        window.removeRow = function (btn) {
+            const row = btn.closest('tr');
+            row.remove();
+        }
+
+        document.getElementById('addRowBtn').addEventListener('click', addRow);
+
+
+        // Add initial row
+        addRow();
+
+    </script>
+</body>
+
+</html>

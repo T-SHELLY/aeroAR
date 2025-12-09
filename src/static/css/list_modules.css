@@ -1,0 +1,143 @@
+.module-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    transition: all var(--transition-fast);
+}
+
+.module-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+}
+
+.module-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.module-code {
+    font-family: monospace;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 99px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-processing {
+    background: rgba(234, 179, 8, 0.1);
+    color: #ca8a04;
+    border: 1px solid #eab308;
+}
+
+.status-complete {
+    background: rgba(34, 197, 94, 0.1);
+    color: #166534;
+    border: 1px solid #22c55e;
+}
+
+.status-error {
+    background: rgba(239, 68, 68, 0.1);
+    color: #b91c1c;
+    border: 1px solid #ef4444;
+}
+
+.module-content {
+    margin-top: var(--spacing-md);
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--spacing-md);
+}
+
+.item-row {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.item-row:last-child {
+    border-bottom: none;
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.transcript-box {
+    background: var(--color-background);
+    padding: 8px;
+    border-radius: 4px;
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    display: none;
+}
+
+details>summary {
+    list-style: none;
+}
+
+details>summary::-webkit-details-marker {
+    display: none;
+}
+
+/* Action Buttons - Matching Status Badge Size and Translucent Style */
+.action-button {
+    padding: 4px 12px;
+    border-radius: 99px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.action-qr {
+    background: rgba(39, 107, 159, 0.1);
+    /* 10% of Primary #276b9f */
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+}
+
+.action-qr:hover {
+    background: rgba(39, 107, 159, 0.2);
+}
+
+.action-delete {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid #ef4444;
+}
+
+.action-delete:hover {
+    background: rgba(239, 68, 68, 0.2);
+}
+
+.action-button.disabled,
+.action-button[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+    filter: grayscale(100%);
+}

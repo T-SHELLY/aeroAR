@@ -13,6 +13,8 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 # Install system dependencies (curl for uv installation)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
+    ca-certificates \
+    ffmpeg \
     bash \
     && rm -rf /var/lib/apt/lists/*
 
@@ -32,9 +34,6 @@ COPY main.py .
 RUN touch README.md
 
 COPY src/ ./src/
-
-# Create audios directory if it doesn't exist
-RUN mkdir -p /app/src/audios
 
 # Expose port 9999
 EXPOSE 80

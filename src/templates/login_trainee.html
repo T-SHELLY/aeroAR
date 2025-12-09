@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>AeroScan - Trainee Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <a href="/" class="logo">
+                <h1 class="logo-text">AeroScan</h1>
+            </a>
+            <h3 class="tagline">Trainee Access</h3>
+        </header>
+
+        <main style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+            <form action="/login/trainee" method="POST" class="login-form">
+                {% if error %}
+                <div class="error-msg">{{ error }}</div>
+                {% endif %}
+
+                <div class="form-group">
+                    <label for="module_code">Training Module Code</label>
+                    <input type="text" id="module_code" name="module_code" required placeholder="e.g. ABCDE12345"
+                        style="text-transform: uppercase;">
+                </div>
+
+                <div style="font-size: 0.85rem; color: var(--color-text-muted);">
+                    Enter the code provided by your trainer to access module materials.
+                </div>
+
+                <button type="submit" class="button">Access Module</button>
+            </form>
+
+            <a href="/" style="margin-top: 24px; color: var(--color-text-muted); text-decoration: none;">&larr; Back to
+                Home</a>
+        </main>
+
+        <footer>
+            <p>Prototype: For development use only.</p>
+        </footer>
+    </div>
+</body>
+
+</html>

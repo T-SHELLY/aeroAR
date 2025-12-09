@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Oil Filter",
+    "transcript": "oil filter and engine oil. Maintenance and safety information. To begin, ensure the aircraft engine has recently ran to increase engine oil temperature, remove the oil drain plug located at the lowest point of the aircraft engine, ensure all contents are drained and examined from metal particles indicating engine damage. Remove oil filter and replace an accordance to the aircraft maintenance manual specifications. Refill the engine with proper oil and quantity. Record the maintenance in the aircraft maintenance logbook for proper documentation, safety information. Always ensure the oil drain plug is reinstalled when refilling engine oil. Where I protection and gloves to reduce the risk of burns and splash back. Never mix oil types. Dispose the used oil properly. Always ensure engine is proper amount of oil before starting.",
+    "filename": "Oil_Filter.wav"
+  },
+  {
+    "name": "Tires and Wheels",
+    "transcript": "Aircraft Tire and Wheel Assembly maintenance and safety information. To begin, check the wheels for leaks, cuts, sidewall bulges and treadwear. If suspected for tire change, deflate the tire by removing the valve cap and valve stem and remove from wheel. Apply proper grease and clean wheel bearings. Replace tire with appropriate specifications for the aircraft. Reflate tires to PSI listed in the aircraft maintenance manual. Torque the lug nuts in a star pattern to specifications located in the aircraft maintenance manual. Safety information. Always chalk the surrounding wheels before performing tire change to ensure the aircraft will not move. Ensure the aircraft is properly jacked to prevent slipping. When replacing tires, never mix brands or ply ratings across the same axle. When deflating, ensure nozzle is pointed in an appropriate direction.",
+    "filename": "Tires_and_Wheels.wav"
+  }
+]

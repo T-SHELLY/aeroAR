@@ -1,5 +1,3 @@
-
-
 services:
   aeroar:
     build:
@@ -12,7 +10,7 @@ services:
       - FLASK_DEBUG=0
     volumes:
       - ../src:/app/src
-      - ../src/audios:/app/src/audios
+      - ../src/modules:/app/src/modules
     networks:
       - aeroar-network
 

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>AeroScan - Glossary</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <a href="/" class="logo">
+        <h1 class="logo-text">AeroScan</h1>
+      </a>
+      <h3 class="tagline">Scan. Learn. Repair.</h3>
+    </header>
+
+    <main>
+      <h3>{{ 'Demo Glossary' if is_demo else 'Glossary' }}</h3>
+
+      <div style="text-align: left; margin-bottom: var(--spacing-lg);">
+        {% if items %}
+        {% for item in items %}
+        <details style="margin-bottom: 12px; background: rgba(255,255,255,0.05); border-radius: 8px; overflow: hidden;">
+          <summary
+            style="padding: 12px; font-weight: 600; cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between;">
+            {{ item.name }}
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              style="opacity: 0.7;">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </summary>
+          <div style="padding: 0 12px 12px 12px; color: var(--color-text-muted); line-height: 1.5; font-size: 0.95rem;">
+            {{ item.transcript }}
+          </div>
+        </details>
+        {% endfor %}
+        {% else %}
+        <div style="text-align: center; color: var(--color-text-muted);">No glossary items found.</div>
+        {% endif %}
+      </div>
+
+      {% if is_demo %}
+      <div style="text-align: center; margin-bottom: var(--spacing-lg);">
+        <p class="easy_read" style="margin-bottom: var(--spacing-md);">
+          Repair and safety information used were acquired from these sources.
+          Click the links to visit the website of a particular source.
+        </p>
+
+        <h4 style="margin-bottom: var(--spacing-sm);">Sources:</h4>
+
+        <div style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
+          <a class="sources_link"
+            href="https://www.aircraftsystemstech.com/p/general-sitemap.html">www.aircraftsystemstech.com</a>
+          <a class="sources_link"
+            href="https://www.faa.gov/documentLibrary/media/Advisory_Circular/AC_20-97B_CHG_1.pdf">www.faa.gov</a>
+        </div>
+      </div>
+      {% endif %}
+
+      <div style="text-align: center; margin-top: var(--spacing-xl);">
+        <a href="/" class="button">Back to Home</a>
+      </div>
+    </main>
+
+    <footer>
+      <p>Prototype: For development use only. Subject to change.</p>
+    </footer>
+  </div>
+</body>
+
+</html>
